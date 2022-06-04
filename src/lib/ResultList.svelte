@@ -1,7 +1,28 @@
 <script>
     import { highlight } from "$lib/stores";
+    import moment from "moment-timezone";
 
     export let results = [];
+
+    const localTime = (res) => {
+        return new moment(res.dateTime).tz(process.env.TIME_ZONE || "Europe/London").format("HH:mm");
+    };
+
+    const homeScore = (res) => {
+        if ("homeGoals" in res && res.homeGoals >= 0) {
+            return res.homeGoals + (res.awayPens || res.homePens ? "(" + res.homePens + ")" : "");
+        } else {
+            return "";
+        }
+    };
+
+    const awayScore = (res) => {
+        if ("awayGoals" in res && res.awayGoals >= 0) {
+            return (res.awayPens || res.homePens ? "(" + res.awayPens + ")" : "") + res.awayGoals;
+        } else {
+            return "";
+        }
+    };
 </script>
 
 {#if results.length > 0}
@@ -27,13 +48,13 @@
                         class:team-highlight={$highlight == result.homeTeam}>{result.homeTeam}</td
                     >
 
-                    {#if result.homeScore == ""}
+                    {#if homeScore(result) == ""}
                         <td colspan="2" class="text-center text-muted" style="width:40px">
-                            {result.time}<br />pitch&nbsp;{result.pitch}
+                            {localTime(result)}<br />pitch&nbsp;{result.pitch}
                         </td>
                     {:else}
-                        <td class="text-right points" style="width:15px">{result.homeScore}</td>
-                        <td class="text-left points" style="width:15px">{result.awayScore}</td>
+                        <td class="text-right points" style="width:15px">{homeScore(result)}</td>
+                        <td class="text-left points" style="width:15px">{awayScore(result)}</td>
                     {/if}
 
                     <td
