@@ -1,12 +1,20 @@
 {
     "name": "@sports-club-manager/tournament-app",
     "version": "3.0.0",
+    "type": "module",
     "author": {
         "name": "Sports Club Manager",
         "url": "https://github.com/sports-club-manager"
     },
     "bugs": {
         "url": "https://github.com/sports-club-manager/tournament-app/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sports-club-manager/tournament-app.git"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "description": "Front end of an application used to distribute tournament results and updates live on site to attendees. Requires the back end API to be accessible in a separate deployment and a Mongo (or compatible) database for storage.",
     "license": "MIT",
@@ -53,6 +61,5 @@
         "svelte": "^3.34.0",
         "svelte-material-ui": "^6.0.0-beta.16",
         "svelte-preprocess": "^4.9.4"
-    },
-    "type": "module"
+    }
 }
