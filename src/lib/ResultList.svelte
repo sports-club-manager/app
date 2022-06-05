@@ -4,11 +4,9 @@
 
     export let results = [];
 
-    const localTime = (res) => {
-        return new moment(res.dateTime).tz(process.env.TIME_ZONE || "Europe/London").format("HH:mm");
-    };
+    let time = (dateTime) => moment(dateTime).tz("Europe/London").format("HH:mm");
 
-    const homeScore = (res) => {
+    let homeScore = (res) => {
         if ("homeGoals" in res && res.homeGoals >= 0) {
             return res.homeGoals + (res.awayPens || res.homePens ? "(" + res.homePens + ")" : "");
         } else {
@@ -16,7 +14,7 @@
         }
     };
 
-    const awayScore = (res) => {
+    let awayScore = (res) => {
         if ("awayGoals" in res && res.awayGoals >= 0) {
             return (res.awayPens || res.homePens ? "(" + res.awayPens + ")" : "") + res.awayGoals;
         } else {
@@ -50,13 +48,12 @@
 
                     {#if homeScore(result) == ""}
                         <td colspan="2" class="text-center text-muted" style="width:40px">
-                            {localTime(result)}<br />pitch&nbsp;{result.pitch}
+                            {time(result.dateTime)}<br />pitch&nbsp;{result.pitch}
                         </td>
                     {:else}
                         <td class="text-right points" style="width:15px">{homeScore(result)}</td>
                         <td class="text-left points" style="width:15px">{awayScore(result)}</td>
                     {/if}
-
                     <td
                         on:click={() => {
                             $highlight = $highlight == result.awayTeam ? "" : result.awayTeam;
