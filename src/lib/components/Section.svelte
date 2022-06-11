@@ -1,5 +1,5 @@
 <script>
-    import AgeFab from "$lib/AgeFab.svelte";
+    import AgeFab from "$lib/components/AgeFab.svelte";
 
     export let fab = "";
     export let container = false;

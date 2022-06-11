@@ -1,22 +1,27 @@
 <script context="module">
-    import * as api from "$lib/api.js";
+    export const load = async ({ url, fetch }) => {
+        console.log(`layout.load`);
 
-    export const load = async ({ url }) => {
-        const tournament = (await api.get("tournament/tournaments"))[0];
         const pathComponents = url.pathname.split("/");
         let idx = pathComponents.length > 1 ? 1 : 0;
+
+        let response = await fetch(`/tournaments`);
+        let data = await response.json();
+        let _t = data.tournament;
+
+        response = await fetch(`/pages`);
+        data = await response.json();
+        let _p = data.pages;
 
         return {
             props: {
                 routeKey: pathComponents[idx],
-                tournament: tournament,
-                pages: await api.get("tournament/pages"),
+                tournament: _t,
+                pages: _p,
             },
             stuff: {
-                tournament: tournament,
-            },
-            cache: {
-                maxage: 900,
+                tournament: _t,
+                pages: _p,
             },
         };
     };
@@ -24,8 +29,8 @@
 
 <script>
     import "$lib/app.scss";
-    import MenuDrawer from "$lib/MenuDrawer.svelte";
-    import PageTransition from "$lib/PageTransition.svelte";
+    import MenuDrawer from "$lib/components/MenuDrawer.svelte";
+    import PageTransition from "$lib/components/PageTransition.svelte";
 
     import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
     import IconButton from "@smui/icon-button";

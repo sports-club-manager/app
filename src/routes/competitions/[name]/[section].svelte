@@ -1,27 +1,11 @@
-<script context="module">
-    import * as api from "$lib/api.js";
-    import { results } from "$lib/stores";
-
-    export const load = async ({ params, stuff }) => {
-        // load results for current age group
-        const res = await api.get(`tournament/results?conditions={"competition.name":"${params.name}"}`);
-
-        results.set([...res]);
-
-        return {
-            props: {
-                tournament: stuff.tournament,
-                name: params.name,
-                section: params.section,
-            },
-        };
-    };
-</script>
-
 <script>
-    import ResultList from "$lib/ResultList.svelte";
-    import LeagueTable from "$lib/LeagueTable.svelte";
-    import Section from "$lib/Section.svelte";
+    import { onMount } from "svelte";
+
+    import { io } from "$lib/socket-client";
+
+    import ResultList from "$lib/components/ResultList.svelte";
+    import LeagueTable from "$lib/components/LeagueTable.svelte";
+    import Section from "$lib/components/Section.svelte";
 
     import Tab, { Label } from "@smui/tab";
     import Button from "@smui/button";
@@ -30,7 +14,33 @@
 
     import moment from "moment-timezone";
 
-    export let tournament, name, section;
+    import { results } from "$lib/stores";
+
+    export let tournament, name, section, _results;
+
+    // ----------------------------------------------------------------------
+
+    results.set(...[_results]);
+
+    onMount(() => {
+        io.on("result", (data) => {
+            console.debug("Received result", data);
+            results.update((r) => {
+                for (let i = 0; i < r.length; i++) {
+                    if (r[i]._id == data._id) {
+                        r[i] = data;
+                        break;
+                    }
+                }
+                return r;
+            });
+        });
+
+        io.on("remove", (data) => {
+            console.debug("Result deleted", data);
+            // TODO implement
+        });
+    });
 
     let active = "1";
     let otherComps = [];
@@ -101,7 +111,7 @@
                 Other sections for this age group:<br />
 
                 {#each otherComps as { section }}
-                    <Button class="header-link" href="/competition/{name}/{section}">{section}</Button>
+                    <Button class="header-link" href="/competitions/{name}/{section}">{section}</Button>
                 {/each}
             </p>
         {/if}
@@ -127,9 +137,7 @@
 
         {#if groupResults.length == 0 && koResults.length == 0}
             <LayoutGrid>
-                <Cell span={12}>
-                    No games have been created in this group.
-                </Cell>
+                <Cell span={12}>No games have been created in this group.</Cell>
             </LayoutGrid>
         {/if}
     </div>
@@ -156,7 +164,7 @@
 <style>
     ul,
     li {
-        list-style: none inside;
+        list-style: square inside;
         padding: 0;
         margin: 0;
     }

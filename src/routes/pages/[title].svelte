@@ -1,27 +1,6 @@
-<script context="module">
-    import * as api from "$lib/api.js";
-
-    export const load = async ({ params }) => {
-        const infoPage = (await api.get(`tournament/pages?conditions={"title":"${params.title}"}`))[0];
-
-        return infoPage
-            ? {
-                  props: {
-                      infoPage: infoPage,
-                  },
-                  cache: {
-                      maxage: 3600,
-                  },
-              }
-            : {
-                  status: 404,
-              };
-    };
-</script>
-
 <script>
+    import Section from "$lib/components/Section.svelte";
     import moment from "moment-timezone";
-    import Section from "$lib/Section.svelte";
     import { marked } from "marked";
 
     export let infoPage;
