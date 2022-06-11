@@ -66,6 +66,3 @@
         </tbody>
     </table>
 {/if}
-
-<style>
-</style>

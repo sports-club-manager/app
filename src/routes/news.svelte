@@ -1,23 +1,9 @@
-<script context="module">
-    import * as api from "$lib/api.js";
-
-    export const load = async () => {
-        return {
-            props: {
-                items: await api.get(`tournament/news`),
-            },
-            cache: {
-                maxage: 3600,
-            },
-        };
-    };
-</script>
-
 <script>
     import moment from "moment-timezone";
-    import Section from "$lib/Section.svelte";
+    import Section from "$lib/components/Section.svelte";
     import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
-    export let items;
+
+    export let news;
 
     let time = (dateTime) => moment(dateTime).tz("Europe/London").format("dddd, HH:mm");
 </script>
@@ -31,13 +17,13 @@
     <div slot="section-body">
         <div class="accordion-container">
             <Accordion>
-                {#each items as item}
+                {#each news as { title, created, body }}
                     <Panel>
                         <Header>
-                            {item.title}
-                            <span slot="description"><small>{time(item.created)}</small></span>
+                            {title}
+                            <span slot="description"><small>{time(created)}</small></span>
                         </Header>
-                        <Content>{item.body}</Content>
+                        <Content>{body}</Content>
                     </Panel>
                 {/each}
             </Accordion>

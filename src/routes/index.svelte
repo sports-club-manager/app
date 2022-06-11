@@ -1,21 +1,16 @@
 <script context="module">
-    import * as api from "$lib/api.js";
-
     export const load = async ({ stuff }) => {
         return {
             props: {
                 tournament: stuff.tournament,
-            },
-            cache: {
-                maxage: 900,
             },
         };
     };
 </script>
 
 <script>
-    import AgeFab from "$lib/AgeFab.svelte";
-    import Section from "$lib/Section.svelte";
+    import AgeFab from "$lib/components/AgeFab.svelte";
+    import Section from "$lib/components/Section.svelte";
     import { goto } from "$app/navigation";
     import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
     import IconButton, { Icon } from "@smui/icon-button";
@@ -64,7 +59,7 @@
                             <List dense>
                                 {#each tournament.competitions as comp}
                                     {#if comp.name == ag.name}
-                                        <Item on:SMUI:action={() => goto(`/competition/${comp.name}/${comp.section}`)}>
+                                        <Item on:SMUI:action={() => goto(`/competitions/${comp.name}/${comp.section}`)}>
                                             <Graphic class="material-icons">sports_soccer</Graphic>
                                             <Text><strong>{comp.section} Section</strong> ({comp.groups} groups)</Text>
                                         </Item>
