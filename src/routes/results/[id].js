@@ -1,5 +1,5 @@
 import { updateResult, findResult, removeResult } from "$lib/db";
-import { eventbus } from "$lib/eventbus";
+import { io } from "$lib/socket-client";
 
 export const get = async ({ params }) => {
     return {
@@ -12,8 +12,8 @@ export const put = async ({ params, request }) => {
     const updated = await updateResult(params.id, await request.json());
 
     // broadcast the updated result on the socket
-    console.log(`emitting updated result to eventbus: ${updated}`);
-    eventbus.emit("result", updated);
+    console.log(`broadcasting updated result: ${updated}`);
+    io.emit("save-result", updated);
 
     return {
         status: 200,
@@ -24,15 +24,13 @@ export const put = async ({ params, request }) => {
 export const del = async ({ params }) => {
     const res = await removeResult(params.id);
 
-    if (res.acknowledged) {
-        // broadcast the deleted result on the socket
-        console.log(`emitting deleted result to eventbus: ${id}`);
-        eventbus.emit("remove-result", id);
+    // broadcast the deleted result on the socket
+    console.log(`broadcasting deleted result: ${params.id}`);
+    io.emit("remove-result", params.id);
 
-        return {
-            status: 204,
-        };
-    }
+    return {
+        status: 204,
+    };
 
     // TODO: fix
     return {

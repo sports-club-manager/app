@@ -23,12 +23,12 @@
     results.set(...[_results]);
 
     onMount(() => {
-        io.on("result", (data) => {
-            console.debug("Received result", data);
+        io.on("result", (result) => {
+            console.debug("Received result", result);
             results.update((r) => {
                 for (let i = 0; i < r.length; i++) {
-                    if (r[i]._id == data._id) {
-                        r[i] = data;
+                    if (r[i]._id == result._id) {
+                        r[i] = result;
                         break;
                     }
                 }
