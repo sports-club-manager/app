@@ -7,22 +7,16 @@ import { News } from "$lib/db/models/News";
 import { Page } from "$lib/db/models/Page";
 import { User } from "$lib/db/models/User";
 
-export const findPage = async (title) => {
-    return await Page.findOne({ title: title });
+// --------------------------------------------------------------------------
+// tournament data
+// --------------------------------------------------------------------------
+export const findTournament = async () => {
+    return await Tournament.findOne();
 };
 
-export const getPageList = async () => {
-    return await Page.find({}, "title");
-};
-
-export const getNews = async () => {
-    return await News.find();
-};
-
-export const saveNews = async (news) => {
-    // TODO: implement save
-};
-
+// --------------------------------------------------------------------------
+// result data
+// --------------------------------------------------------------------------
 export const findResult = async (id) => {
     return await Result.findById(id);
 };
@@ -36,7 +30,7 @@ export const findResultsByAgeGroupAndSection = async (name, section) => {
 };
 
 export const updateResult = async (id, result) => {
-    const updated = await Result.findByIdAndUpdate(id, result, {
+    const updated = await Result.findOneAndReplace({ _id: id }, result, {
         upsert: true,
         new: true,
     });
@@ -48,10 +42,31 @@ export const removeResult = async (id) => {
     // TODO: implement deletion
 };
 
-export const findTournament = async () => {
-    return await Tournament.findOne();
+// --------------------------------------------------------------------------
+// infopage data
+// --------------------------------------------------------------------------
+export const findPage = async (title) => {
+    return await Page.findOne({ title: title });
 };
 
+export const getPageList = async () => {
+    return await Page.find({}, "title");
+};
+
+// --------------------------------------------------------------------------
+// news data
+// --------------------------------------------------------------------------
+export const getNews = async () => {
+    return await News.find();
+};
+
+export const saveNews = async (news) => {
+    return await News.create();
+};
+
+// --------------------------------------------------------------------------
+// setup
+// --------------------------------------------------------------------------
 let mongoUri = import.meta.env.VITE_MONGO_URI || "mongodb://localhost/stbgfc-dev";
 let mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
