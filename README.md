@@ -1,8 +1,6 @@
 # Sports Club Manager Tournament App
 
-Front end of an application used to distribute tournament results and updates
-live on site to attendees. Requires the back end API to be accessible in a
-separate deployment and a Mongo (or compatible) database for storage.
+Native [svelte-kit][2] application used to distribute tournament results and updates live on site to attendees. Requires a Mongo (or compatible) database for storage.
 
 ## Developer / Contributor information
 

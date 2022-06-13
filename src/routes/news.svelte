@@ -3,7 +3,11 @@
     import Section from "$lib/components/Section.svelte";
     import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
 
-    export let news;
+    import { news } from "$lib/stores";
+
+    export let _news;
+
+    news.set(...[_news]);
 
     let time = (dateTime) => moment(dateTime).tz("Europe/London").format("dddd, HH:mm");
 </script>
@@ -17,7 +21,7 @@
     <div slot="section-body">
         <div class="accordion-container">
             <Accordion>
-                {#each news as { title, created, body }}
+                {#each $news as { title, created, body }}
                     <Panel>
                         <Header>
                             {title}
