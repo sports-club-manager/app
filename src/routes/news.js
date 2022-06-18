@@ -10,11 +10,12 @@ export const get = async () => {
 export const post = async (news) => {
     const newsItem = await saveNews(news);
     // broadcast the news on the socket
-    io.sockets.emit("save-news", newsItem);
+    io.emit("save-news", newsItem);
     
     return {
         headers: {
             status: 201
-        }
+        }, 
+        body: {}
     };
 };
