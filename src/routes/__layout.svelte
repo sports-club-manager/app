@@ -27,7 +27,6 @@
 </script>
 
 <script>
-    import "$lib/app.scss";
     import MenuDrawer from "$lib/components/MenuDrawer.svelte";
     import PageTransition from "$lib/components/PageTransition.svelte";
 
@@ -74,7 +73,6 @@
         flex-wrap: wrap;
         flex-direction: column;
         justify-content: space-between;
-        color: var(--mdc-theme-on-primary);
         overflow: hidden;
     }
 
@@ -90,7 +88,6 @@
         padding: 2.9em 0;
         margin: 0;
         text-align: center;
-        color: var(--mdc-theme-on-primary);
         font-size: smaller;
     }
 
