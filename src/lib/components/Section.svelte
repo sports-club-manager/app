@@ -27,9 +27,8 @@
 
     .section-head {
         padding: 40px 15px;
-        color: var(--mdc-theme-on-primary, whitesmoke);
-        background-color: #333;
-        background-color: var(--mdc-theme-text-icon-on-light);
+        color: whitesmoke;
+        background-color: rgba(0, 0, 0, 0.68);
     }
 
     .section-head .content {
@@ -38,15 +37,9 @@
 
     * :global(.section-head .content a) {
         color: inherit;
-        border-bottom: 1px dotted var(--mdc-theme-on-primary, whitesmoke);
+        border-bottom: 1px dotted whitesmoke;
         text-decoration: none;
         text-transform: uppercase;
-    }
-
-    .section-body {
-        color: var(--mdc-theme-on-surface, #333);
-        background-color: var(--mdc-theme-surface, white);
-        border-radius: 0 0 6px 6px;
     }
 
     div.raw-content {

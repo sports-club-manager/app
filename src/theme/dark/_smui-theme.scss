@@ -1,0 +1,39 @@
+$background: #222;
+
+@use '@material/theme/index' as theme with (
+  $primary: #a00,
+  $secondary: #ccc,
+  $surface: #100,
+  $background: $background,
+  $error: #f00
+);
+@use '@smui-extra/accordion/style' as accordion;
+
+@import "../common";
+
+html,
+body {
+  color: if(theme.contrast-tone($background) == 'dark', #000, #fff);
+}
+
+a,
+a:hover,
+a:focus,
+a:visited {
+    color: theme.$primary;
+}
+
+.points {
+    color: theme.$primary;
+    background-color: theme.$surface;
+    font-weight: bold;
+}
+
+.section-body {
+    background-color: $background;
+    border-radius: 0 0 6px 6px;
+}
+
+blockquote {
+    border-left: 5px solid theme.$primary;
+}

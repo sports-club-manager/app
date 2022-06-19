@@ -96,7 +96,6 @@
         font: normal italic larger Arial;
         line-height: 1.5em;
         padding-left: 12px;
-        border-left: 5px solid var(--mdc-theme-primary);
     }
 
     h1 {
