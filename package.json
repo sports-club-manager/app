@@ -22,7 +22,7 @@
         "dev": "svelte-kit dev --host",
         "build": "svelte-kit build",
         "preview": "svelte-kit preview --host",
-        "prepare": "mkdir -p build && npm run smui-theme-light && npm run smui-theme-dark",
+        "prepare": "mkdir -p static/styles && npm run smui-theme-light && npm run smui-theme-dark",
         "smui-theme-light": "smui-theme compile static/styles/light.css -i src/theme/light",
         "smui-theme-dark": "smui-theme compile static/styles/dark.css -i src/theme/dark",
         "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",

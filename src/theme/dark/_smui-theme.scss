@@ -1,9 +1,9 @@
-$background: #222;
+$background: rgba(34, 34, 34, 0.98);
 
 @use '@material/theme/index' as theme with (
   $primary: #a00,
   $secondary: #ccc,
-  $surface: #100,
+  $surface: #222,
   $background: $background,
   $error: #f00
 );
@@ -25,7 +25,7 @@ a:visited {
 
 .points {
     color: theme.$primary;
-    background-color: theme.$surface;
+    background-color: #100;
     font-weight: bold;
 }
 

@@ -26,7 +26,7 @@ body {
 
 @mixin headliner($height: 0px, $tracking: 0, $font-size: 0) {
     font-size: px-to-rem($height);
-    line-height: 145%;
+    padding-bottom: 2%;
     letter-spacing: math.div($tracking, $font-size * 16) * 1em;
     text-decoration: inherit;
     text-transform: inherit;
