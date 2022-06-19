@@ -67,7 +67,7 @@ export const saveNews = async (news) => {
 // --------------------------------------------------------------------------
 // setup
 // --------------------------------------------------------------------------
-let mongoUri = import.meta.env.VITE_MONGO_URI || "mongodb://localhost/stbgfc-dev";
+let mongoUri = import.meta.env.VITE_MONGO_URI || "mongodb://localhost/scm-dev";
 let mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 if (!browser) {

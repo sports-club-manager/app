@@ -22,9 +22,12 @@
         "dev": "svelte-kit dev --host",
         "build": "svelte-kit build",
         "preview": "svelte-kit preview --host",
+        "prepare": "mkdir -p build && npm run smui-theme-light && npm run smui-theme-dark",
+        "smui-theme-light": "smui-theme compile static/styles/light.css -i src/theme/light",
+        "smui-theme-dark": "smui-theme compile static/styles/dark.css -i src/theme/dark",
         "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
         "format": "prettier --write --plugin-search-dir=. .",
-        "seed": "mongo stbgfc-test scripts/testdb-seed.js"
+        "seed": "mongo scm-test scripts/testdb-seed.js"
     },
     "devDependencies": {
         "@material/theme": "^13.0.0",

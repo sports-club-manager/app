@@ -7,7 +7,7 @@
 
 var tournament = {
     __v: 0,
-    club: "STBGFC",
+    club: "SCM",
     competitions: [
         {
             name: "U8",
@@ -90,9 +90,9 @@ var tournament = {
             groups: 2,
         },
     ],
-    description: "Welcome to the Sandhurst Town Boys & Girls FC Summer Tournament.",
+    description: "Welcome to the Sports Club Manager Test Tournament.",
     name: "Sandhurst Test",
-    siteUrl: "https://www.stbgfc.co.uk",
+    siteUrl: "https://github.com/sports-club-manager",
 };
 var news = [
     { title: "Test announcement 1", body: "this is a test announcement" },
