@@ -1,6 +1,5 @@
 <script context="module">
     export const load = async ({ url, fetch }) => {
-
         const pathComponents = url.pathname.split("/");
         let idx = pathComponents.length > 1 ? 1 : 0;
 

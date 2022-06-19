@@ -1,20 +1,15 @@
 $background: rgba(34, 34, 34, 0.98);
 
-@use '@material/theme/index' as theme with (
+@use "@material/theme/index" as theme with (
   $primary: #a00,
   $secondary: #ccc,
   $surface: #222,
   $background: $background,
   $error: #f00
 );
-@use '@smui-extra/accordion/style' as accordion;
+@use "@smui-extra/accordion/style" as accordion;
 
 @import "../common";
-
-html,
-body {
-  color: if(theme.contrast-tone($background) == 'dark', #000, #fff);
-}
 
 a,
 a:hover,
