@@ -4,7 +4,6 @@ const tournament = await findTournament();
 
 /** @type {import('./__types/[id]').RequestHandler} */
 export const get = async ({ params }) => {
-
     if (!tournament.competitions.find((c) => c.name === params.name && c.section === params.section)) {
         return { status: 404 };
     }

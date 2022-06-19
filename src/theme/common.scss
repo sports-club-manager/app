@@ -1,18 +1,5 @@
 @use 'sass:math';
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: "Roboto", sans-serif !important;
-  background: url(/images/background.jpg) no-repeat fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color: $background;
-}
-
 @function px-to-rem($px) {
     @if $px == null {
         @return null;
@@ -34,7 +21,21 @@ body {
     font-weight: lighter;
     margin: 0;
 }
-  
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: "Roboto", sans-serif !important;
+    background: url(/images/background.jpg) no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: $background;
+    color: whitesmoke;
+}
+
 h1 {
     @include headliner($height: 75px, $tracking: -1.5, $font-size: 6);
 }
@@ -72,7 +73,7 @@ table,
     color: #aaa;
 }
 .table th {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 .team-highlight {
@@ -115,14 +116,14 @@ table,
 }
 
 @media print {
-  .no-print {
-      display: none;
-  }
-  .table {
-      page-break-after: always;
-      page-break-inside: avoid;
-  }
-  body {
-      padding-top: 0px; /* from 80 */
-  }
+    .no-print {
+        display: none;
+    }
+    .table {
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+    body {
+        padding-top: 0px; /* from 80 */
+    }
 }
