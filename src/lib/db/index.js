@@ -38,7 +38,7 @@ export const updateResult = async (id, result) => {
     return updated;
 };
 
-export const updateStageTwo = async (source, target) => {    
+export const updateStageTwo = async (source, target) => {
     console.debug(`Updating ${source} to ${target}`);
     await Result.updateMany({ homeTeamFrom: source }, { $set: { homeTeam: target } });
     await Result.updateMany({ awayTeamFrom: source }, { $set: { awayTeam: target } });

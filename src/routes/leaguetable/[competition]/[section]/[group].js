@@ -18,6 +18,6 @@ export const post = async ({ params, request }) => {
     }
 
     return {
-        status: 200
+        status: 200,
     };
 };
