@@ -25,6 +25,7 @@ a:visited {
 }
 
 .section-body {
+    color: if(theme.contrast-tone($background) == 'dark', #222, whitesmoke);
     background-color: $background;
     border-radius: 0 0 6px 6px;
 }
