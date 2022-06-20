@@ -91,7 +91,7 @@ var tournament = {
         },
     ],
     description: "Welcome to the Sports Club Manager Test Tournament.",
-    name: "Sandhurst Test",
+    name: "SCM Test",
     siteUrl: "https://github.com/sports-club-manager",
 };
 var news = [
