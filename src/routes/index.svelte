@@ -49,7 +49,7 @@
                     <Panel bind:open={isOpen[i]}>
                         <Header>
                             <AgeFab name={ag.name} />
-                            All {ag.name} competitions<br /><small>Saturday morning</small>
+                            <h6>All {ag.name} competitions</h6><small>Saturday morning</small>
                             <IconButton slot="icon" toggle pressed={isOpen[i]}>
                                 <Icon class="material-icons" on>expand_less</Icon>
                                 <Icon class="material-icons">expand_more</Icon>

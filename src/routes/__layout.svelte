@@ -64,7 +64,84 @@
     </section>
 </div>
 
-<style>
+
+
+<style global lang="scss">
+    @use '@material/typography/index' as typography;
+    @use '@material/typography/mdc-typography';
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        font-family: "Roboto", sans-serif !important;
+        background: url(/images/background.jpg) no-repeat fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    h1 {
+        @include typography.typography("headline2");
+        font-family: "Roboto Condensed";
+        margin: 0;
+    }
+    h2 {
+        @include typography.typography("headline3");
+        font-family: "Roboto Condensed";
+        margin: 0;
+    }
+    h3 {
+        @include typography.typography("headline4");
+        font-family: "Roboto Condensed";
+        margin: 0;
+    }
+    h4 {
+        @include typography.typography("headline4");
+        font-family: "Roboto Condensed";
+        margin: 0;
+    }
+    h5 {
+        @include typography.typography("headline5");
+        font-family: "Roboto Condensed";
+        margin: 0;
+    }
+    h6 {
+        @include typography.typography("headline6");
+        font-family: "Roboto Condensed";
+        margin: 0;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+    .text-right {
+        text-align: right;
+    }
+    .text-left {
+        text-align: left;
+    }
+
+    table,
+    .table {
+        border-width: 0;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table thead tr,
+    .text-muted {
+        color: #aaa;
+    }
+    .table th {
+        font-weight: normal;
+    }
+
+    .team-highlight {
+        font-weight: bold;
+        text-decoration: underline dotted;
+    }
+
     .flex-layout {
         flex-direction: column;
         min-height: 100vh;
@@ -95,4 +172,52 @@
         border-bottom: 1px dotted #f5f5f5;
         text-decoration: none;
     }
+
+    @media (max-width: 464px) {
+        html,
+        body {
+            font-size: small;
+        }
+        .smui-paper {
+            padding: 12px 8px;
+        }
+        .table > tbody > tr > td,
+        .table > thead > tr > th {
+            padding: 3px 6px;
+            line-height: 1.4;
+        }
+    }
+
+    @media (min-width: 394px) {
+        .table > tbody > tr > td,
+        .table > thead > tr > th {
+            padding: 5px 10px;
+            line-height: 1.4;
+        }
+        .smui-paper {
+            padding: 24px 16px;
+        }
+    }
+
+    @media (min-width: 839px) {
+        .table > tbody > tr > td,
+        .table > thead > tr > th {
+            padding: 8px 12px;
+            line-height: 1.4;
+        }
+    }
+
+    @media print {
+        .no-print {
+            display: none;
+        }
+        .table {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+        body {
+            padding-top: 0px; /* from 80 */
+        }
+    }
+
 </style>
