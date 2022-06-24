@@ -26,17 +26,22 @@
 </script>
 
 <script>
+    import { session } from "$app/stores";
+
     import MenuDrawer from "$lib/components/MenuDrawer.svelte";
     import PageTransition from "$lib/components/PageTransition.svelte";
 
     import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
     import IconButton from "@smui/icon-button";
+
     let drawerOpen = false;
 
-    export let routeKey, tournament, pages, user;
+    let user = $session.user;
+
+    export let routeKey, tournament, pages;
 </script>
 
-<MenuDrawer bind:open={drawerOpen} {tournament} {pages} user={user || {}} />
+<MenuDrawer bind:open={drawerOpen} {tournament} {pages} {user} />
 
 <div class="flex-layout">
     <main>
@@ -63,8 +68,6 @@
         <p>&copy; Darren Davison &amp; <a href={tournament.siteUrl}>{tournament.club}</a> 2022</p>
     </section>
 </div>
-
-
 
 <style global lang="scss">
     @use '@material/typography/index' as typography;
@@ -219,5 +222,4 @@
             padding-top: 0px; /* from 80 */
         }
     }
-
 </style>

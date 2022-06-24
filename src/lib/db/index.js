@@ -7,6 +7,8 @@ import { News } from "$lib/db/models/News";
 import { Page } from "$lib/db/models/Page";
 import { User } from "$lib/db/models/User";
 
+const ROLE_GUEST = "guest";
+
 // --------------------------------------------------------------------------
 // tournament data
 // --------------------------------------------------------------------------
@@ -69,6 +71,35 @@ export const getNews = async () => {
 
 export const saveNews = async (news) => {
     return await News.create();
+};
+
+// --------------------------------------------------------------------------
+// user data
+// --------------------------------------------------------------------------
+export const findOrCreateUser = async (profile) => {
+    let user = await User.findOne({ providerId: profile.id, providerName: profile.provider });
+
+    if (user !== null) {
+        console.debug(`User lookup returned ${user.email}`);
+    } else {
+        console.debug(`Creating new user ${profile.email}`);
+        try {
+            user = await User.create(
+                {
+                    providerId: profile.id,
+                    providerName: profile.provider,
+                    email: profile.email,
+                    photo: profile.picture,
+                    displayName: profile.name,
+                    roles: [ROLE_GUEST],
+                }            
+            );
+        } catch (err) {
+            console.error("Failed to create user", err);            
+        }
+    }
+
+    return user;
 };
 
 // --------------------------------------------------------------------------
