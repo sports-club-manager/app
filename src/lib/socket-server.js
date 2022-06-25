@@ -10,12 +10,20 @@ export default function injectSocketServer(server) {
             console.log("user disconnected");
         });
 
+        /*
+         * simply propagate all events to all clients
+         */
+
         socket.on("save-result", (result) => {
-            io.emit("result", result);
+            io.emit("save-result", result);
         });
 
         socket.on("remove-result", (result) => {
-            io.emit("remove", result);
+            io.emit("remove-result", result);
+        });
+
+        socket.on("save-news", (result) => {
+            io.emit("save-news", result);
         });
     });
 

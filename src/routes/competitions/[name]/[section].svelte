@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
 
     import { io } from "$lib/socket-client";
+    import { results } from "$lib/stores";
 
     import ResultList from "$lib/components/ResultList.svelte";
     import LeagueTable from "$lib/components/LeagueTable.svelte";
@@ -14,7 +15,6 @@
 
     import moment from "moment-timezone";
 
-    import { results } from "$lib/stores";
 
     export let tournament, name, section, _results;
 
@@ -23,7 +23,7 @@
     results.set(...[_results]);
 
     onMount(() => {
-        io.on("result", (result) => {
+        io.on("save-result", (result) => {
             console.debug("Received result", result);
             results.update((r) => {
                 for (let i = 0; i < r.length; i++) {
@@ -36,7 +36,7 @@
             });
         });
 
-        io.on("remove", (data) => {
+        io.on("remove-result", (data) => {
             console.debug("Result deleted", data);
             // TODO implement
         });

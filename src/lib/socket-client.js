@@ -1,6 +1,6 @@
 import ioClient from "socket.io-client";
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = import.meta.env.VITE_HOST_URL;
 
 const socket = ioClient(baseUrl, { "connect timeout": 5000 });
 
