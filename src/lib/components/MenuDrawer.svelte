@@ -27,7 +27,7 @@
     <Content>
         {#if user && user.name}
             <List twoLine avatarList>
-                <Item href="javascript:void(0)" on:click={() => goto(`/auth/google/logout`)}>
+                <Item>
                     <Graphic><img style="height: 40px;width: 40px" class="mdc-fab" src={user.photo} alt={user.name} /></Graphic>
                     <Text>
                         <PrimaryText>{user.name}</PrimaryText>
@@ -58,13 +58,13 @@
                     <Text>Site Map</Text>
                 </Item>
             {/if}
-            <Item href="javascript:void(0)" on:click={() => setActive("News", "/news")} activated={active === "News"}>
-                <Graphic class="material-icons" aria-hidden="true">feed</Graphic>
-                <Text>News</Text>
-            </Item>
 
             <Separator />
             <Subheader>Tournament Information</Subheader>
+            <Item href="javascript:void(0)" on:click={() => setActive("News", "/news")} activated={active === "News"}>
+                <Graphic class="material-icons" aria-hidden="true">feed</Graphic>
+                <Text>Announcements</Text>
+            </Item>
             {#each pages as page}
                 <Item
                     href="javascript:void(0)"
