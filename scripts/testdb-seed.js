@@ -95,12 +95,12 @@ var tournament = {
     siteUrl: "https://github.com/sports-club-manager",
 };
 var news = [
-    { title: "Test announcement 1", body: "this is a test announcement" },
-    { title: "Another test announcement", body: "this is another announcement" },
+    { title: "Test announcement 1", body: "this is a test announcement", created: new Date() },
+    { title: "Another test announcement", body: "this is another announcement", created: new Date() },
 ];
 var pages = [
-    { title: "Title 1", body: "## Title 1\n\nthis is test page 1" },
-    { title: "Title 2", body: "## Title 2\n\nthis is test page 2" },
+    { title: "Title 1", body: "## Title 1\n\nthis is test page 1", created: new Date() },
+    { title: "Title 2", body: "## Title 2\n\nthis is test page 2", created: new Date() },
 ];
 var users = [
     {

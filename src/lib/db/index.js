@@ -66,11 +66,12 @@ export const getPageList = async () => {
 // news data
 // --------------------------------------------------------------------------
 export const getNews = async () => {
-    return await News.find();
+    return await News.find().sort({ created: "desc" });
 };
 
 export const saveNews = async (news) => {
-    return await News.create();
+    console.debug(`Saving ${JSON.stringify(news)}`)
+    return await News.create(news);
 };
 
 // --------------------------------------------------------------------------

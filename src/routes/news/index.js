@@ -7,8 +7,9 @@ export const get = async () => {
     };
 };
 
-export const post = async (news) => {
-    const newsItem = await saveNews(news);
+export const post = async ({ request }) => {
+    const newsItem = await saveNews(await request.json());
+
     // broadcast the news on the socket
     io.emit("save-news", newsItem);
 
@@ -16,6 +17,6 @@ export const post = async (news) => {
         headers: {
             status: 201,
         },
-        body: {},
+        body: newsItem,
     };
 };
