@@ -1,53 +1,49 @@
-import { build, timestamp, files } from "$service-worker";
+import { version, build, files } from "$service-worker";
 
-const cacheName = `tournament-app-cache-v${timestamp}`;
-const offlinePage = "/offline.html";
+const cacheName = `cache-${version}`;
 
-self.addEventListener("install", (e) => {
-    e.waitUntil(
-        (async () => {
-            const cache = await caches.open(cacheName);
-            await cache.addAll(build);
-            await cache.addAll(files);
-        })()
-    );
-    self.skipWaiting();
+self.addEventListener("install", (event) => {
+    event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(["/", ...build, ...files])));
 });
 
-self.addEventListener("activate", (e) => {
-    e.waitUntil(
-        caches.keys().then((keyList) => {
-            return Promise.all(
-                keyList.map((key) => {
-                    if (key === cacheName) {
-                        return;
-                    }
-                    return caches.delete(key);
-                })
-            );
+self.addEventListener("activate", (event) => {
+    event.waitUntil(
+        caches.keys().then(async (keys) => {
+            for (const key of keys) {
+                if (!key.includes(version)) caches.delete(key);
+            }
         })
     );
-    self.clients.claim();
 });
 
-self.addEventListener("fetch", (e) => {
-    e.respondWith(
-        (async () => {
-            const r = await caches.match(e.request);
-            if (r) {
-                return r;
-            }
+self.addEventListener("fetch", (event) => {
+    const { request } = event;
 
-            try {
-                const response = await fetch(e.request);
-                return response;
-            } catch (error) {
-                // likely a network error due to offline
-                console.log(`Fetch failed; returning ${offlinePage}`);
-                const cache = await caches.open(cacheName);
-                const r = await cache.match(offlinePage);
-                return r;
+    if (request.method !== "GET" || request.headers.has("range")) return;
+
+    const url = new URL(request.url);
+    const cached = caches.match(request);
+
+    if (url.origin === location.origin && build.includes(url.pathname)) {
+        // always return build files from cache
+        event.respondWith(cached);
+        
+    } else if (url.protocol === "https:" || location.hostname === "localhost") {
+        // hit the network for everything else...
+        const promise = fetch(request);
+
+        // ...and cache successful responses...
+        promise.then((response) => {
+            // cache successful responses
+            if (response.ok && response.type === "basic") {
+                const clone = response.clone();
+                caches.open(cacheName).then((cache) => {
+                    cache.put(request, clone);
+                });
             }
-        })()
-    );
+        });
+
+        // ...but if it fails, fall back to cache if available
+        event.respondWith(promise.catch(() => cached || promise));
+    }
 });

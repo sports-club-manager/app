@@ -1,6 +1,12 @@
 {
     "name": "SCM Tournament App",
     "short_name": "SCM",
+    "description": "Web application / PWA used to distribute tournament results and updates live on site to attendees. Requires a Mongo (or compatible) database for storage.",
+    "start_url": "/",
+    "id": "/",
+    "display": "standalone",
+    "background_color": "#efefef",
+    "theme_color": "#a00",
     "icons": [
       {
         "src": "/icons/icon-128x128.png",
@@ -32,9 +38,5 @@
         "sizes": "512x512",
         "type": "image/png"
       }
-    ],
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#efefef",
-    "theme_color": "#a00"
+    ]
   }
