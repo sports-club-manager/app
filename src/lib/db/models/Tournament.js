@@ -16,6 +16,7 @@ const TournamentSchema = new mongoose.Schema({
     description: String,
     club: String,
     siteUrl: String,
+    primaryColour: String,
     competitions: [CompetitionSchema],
 });
 
