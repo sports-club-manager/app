@@ -38,17 +38,17 @@
         {/if}
         <List>
             {#if !(user && user.name)}
-                <Item href="javascript:void(0)" on:click={() => goto(`/auth/google/login`)}>
+                <Item href="#" on:click={() => goto(`/auth/google/login`)}>
                     <Graphic class="material-icons" aria-hidden="true">login</Graphic>
                     <Text>Login</Text>
                 </Item>
             {:else}
-                <Item href="javascript:void(0)" on:click={() => goto(`/auth/logout`)}>
+                <Item href="#" on:click={() => goto(`/auth/logout`)}>
                     <Graphic class="material-icons" aria-hidden="true">logout</Graphic>
                     <Text>Logout</Text>
                 </Item>
             {/if}
-            <Item href="javascript:void(0)" on:click={() => setActive("Home", "/")} activated={active === "Home"}>
+            <Item href="#" on:click={() => setActive("Home", "/")} activated={active === "Home"}>
                 <Graphic class="material-icons" aria-hidden="true">home</Graphic>
                 <Text>Home</Text>
             </Item>
@@ -61,13 +61,13 @@
 
             <Separator />
             <Subheader>Tournament Information</Subheader>
-            <Item href="javascript:void(0)" on:click={() => setActive("News", "/news")} activated={active === "News"}>
+            <Item href="#" on:click={() => setActive("News", "/news")} activated={active === "News"}>
                 <Graphic class="material-icons" aria-hidden="true">feed</Graphic>
                 <Text>Announcements</Text>
             </Item>
             {#each pages as page}
                 <Item
-                    href="javascript:void(0)"
+                    href="#"
                     on:click={() => setActive(page.title, `/pages/${page.title}`)}
                     activated={active === page.title}
                 >

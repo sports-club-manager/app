@@ -51,7 +51,7 @@
                             <AgeFab name={ag.name} />
                             <h6>All {ag.name} competitions</h6>
                             <small>Saturday morning</small>
-                            <IconButton slot="icon" toggle pressed={isOpen[i]}>
+                            <IconButton slot="icon" toggle pressed={isOpen[i]} aria-label={`Expand ${ag.name} Section`}>
                                 <Icon class="material-icons" on>expand_less</Icon>
                                 <Icon class="material-icons">expand_more</Icon>
                             </IconButton>
@@ -78,7 +78,7 @@
 <style>
     .index-head {
         background-origin: content-box;
-        background-image: url("/icons/icon-512x512.png");
+        background-image: url("/icons/icon-512x512.webp");
         background-size: 7rem;
         background-position: top right;
         background-repeat: no-repeat;
