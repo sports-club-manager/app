@@ -27,7 +27,6 @@ self.addEventListener("fetch", (event) => {
     if (url.origin === location.origin && build.includes(url.pathname)) {
         // always return build files from cache
         event.respondWith(cached);
-        
     } else if (url.protocol === "https:" || location.hostname === "localhost") {
         // hit the network for everything else...
         const promise = fetch(request);

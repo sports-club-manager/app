@@ -15,7 +15,6 @@
 
     import moment from "moment-timezone";
 
-
     export let tournament, name, section, _results;
 
     // ----------------------------------------------------------------------

@@ -5,10 +5,10 @@
     import { news } from "$lib/stores";
 
     import Section from "$lib/components/Section.svelte";
-    
+
     import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
     import IconButton, { Icon } from "@smui/icon-button";
-    
+
     import moment from "moment-timezone";
 
     export let _news;
@@ -24,10 +24,9 @@
     onMount(() => {
         io.on("save-news", (_newItem) => {
             console.debug("Received news", _newItem);
-            news.update(n => [_newItem, ...n]);
+            news.update((n) => [_newItem, ...n]);
         });
     });
-
 </script>
 
 <Section fab="icon:feed" container={true}>

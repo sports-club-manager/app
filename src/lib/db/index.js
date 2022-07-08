@@ -70,7 +70,7 @@ export const getNews = async () => {
 };
 
 export const saveNews = async (news) => {
-    console.debug(`Saving ${JSON.stringify(news)}`)
+    console.debug(`Saving ${JSON.stringify(news)}`);
     return await News.create(news);
 };
 
@@ -85,18 +85,16 @@ export const findOrCreateUser = async (profile) => {
     } else {
         console.debug(`Creating new user ${profile.email}`);
         try {
-            user = await User.create(
-                {
-                    providerId: profile.id,
-                    providerName: profile.provider,
-                    email: profile.email,
-                    photo: profile.picture,
-                    displayName: profile.name,
-                    roles: [ROLE_GUEST],
-                }            
-            );
+            user = await User.create({
+                providerId: profile.id,
+                providerName: profile.provider,
+                email: profile.email,
+                photo: profile.picture,
+                displayName: profile.name,
+                roles: [ROLE_GUEST],
+            });
         } catch (err) {
-            console.error("Failed to create user", err);            
+            console.error("Failed to create user", err);
         }
     }
 

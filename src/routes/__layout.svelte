@@ -44,9 +44,9 @@
 <svelte:head>
     <meta name="description" content="{tournament.name} results and league tables" />
     <meta name="author" content="{tournament.club} and SCM" />
-    <meta name="theme-color" content="{tournament.primaryColour || '#0a0'}" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="{tournament.primaryColour || '#0a0'}" />
-    <meta name="apple-mobile-web-app-title" content="{tournament.name}" />
+    <meta name="theme-color" content={tournament.primaryColour || "#0a0"} />
+    <meta name="apple-mobile-web-app-status-bar-style" content={tournament.primaryColour || "#0a0"} />
+    <meta name="apple-mobile-web-app-title" content={tournament.name} />
 </svelte:head>
 
 <MenuDrawer bind:open={drawerOpen} {tournament} {pages} {user} />

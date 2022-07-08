@@ -1,7 +1,7 @@
 import { authClient } from "$lib/auth";
 
 const url = authClient.generateAuthUrl({
-  scope: ["email", "profile"]
+    scope: ["email", "profile"],
 });
 
 export const get = async ({ request }) => {
@@ -9,6 +9,6 @@ export const get = async ({ request }) => {
         status: 302,
         headers: {
             location: url,
-        }
-    }
+        },
+    };
 };
