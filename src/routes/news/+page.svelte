@@ -11,7 +11,8 @@
 
     import moment from "moment-timezone";
 
-    export let _news;
+    export let data;
+    let _news = data._news;
 
     // ----------------------------------------------------------------------
 

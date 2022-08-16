@@ -1,13 +1,3 @@
-<script context="module">
-    export const load = async ({ stuff }) => {
-        return {
-            props: {
-                tournament: stuff.tournament,
-            },
-        };
-    };
-</script>
-
 <script>
     import AgeFab from "$lib/components/AgeFab.svelte";
     import Section from "$lib/components/Section.svelte";
@@ -16,12 +6,14 @@
     import IconButton, { Icon } from "@smui/icon-button";
     import List, { Item, Graphic, Text } from "@smui/list";
 
-    export let tournament;
-
+    let tournament = {};
     let isOpen = [];
     let ageGroups = [];
 
+    export let data;
+    
     $: {
+        tournament = data.tournament
         ageGroups = tournament.competitions.reduce(
             (comps, comp) => (comps.find((x) => x.name === comp.name) ? [...comps] : [...comps, comp]),
             []

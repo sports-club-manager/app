@@ -3,7 +3,8 @@
     import moment from "moment-timezone";
     import { marked } from "marked";
 
-    export let infoPage;
+    export let data;
+    let infoPage = data.infoPage;
 </script>
 
 <Section fab="icon:bookmark" container={true}>

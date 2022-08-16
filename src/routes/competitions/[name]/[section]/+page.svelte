@@ -15,7 +15,8 @@
 
     import moment from "moment-timezone";
 
-    export let tournament, name, section, _results;
+    export let data;
+    $: ({ tournament, name, section, _results } = data);
 
     // ----------------------------------------------------------------------
 

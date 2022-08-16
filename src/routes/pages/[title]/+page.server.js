@@ -1,6 +1,6 @@
 import { findPage } from "$lib/db";
 
-/** @type {import('./__types/[id]').RequestHandler} */
+/** @type {import('./$types').RequestHandler} */
 export const get = async ({ params }) => {
     let infoPage = await findPage(params.title);
 

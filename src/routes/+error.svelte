@@ -1,16 +1,8 @@
-<script context="module">
-    export function load({ error, status }) {
-        return {
-            props: { error, status },
-        };
-    }
-</script>
-
 <script>
+    import { page } from '$app/stores';
     import Section from "$lib/components/Section.svelte";
 
-    export let status;
-    export let error;
+    let { error, status } = page;
 </script>
 
 <Section fab="icon:error" container={true}>
