@@ -1,13 +1,13 @@
 import { updateResult, findResult, removeResult, updateStageTwo } from "$lib/db";
 import { io } from "$lib/socket-client";
 
-export const get = async ({ params }) => {
+export const GET = async ({ params }) => {
     return {
         body: await findResult(params.id),
     };
 };
 
-export const put = async ({ params, request }) => {
+export const PUT = async ({ params, request }) => {
     console.log(`request.PUT ${params.id}`);
     const result = await updateResult(params.id, await request.json());
 
@@ -35,7 +35,7 @@ export const put = async ({ params, request }) => {
     };
 };
 
-export const del = async ({ params }) => {
+export const DELETE = async ({ params }) => {
     const res = await removeResult(params.id);
 
     // broadcast the deleted result on the socket

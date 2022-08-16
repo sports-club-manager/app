@@ -3,7 +3,7 @@ import { findResultsByAgeGroup, findTournament } from "$lib/db";
 const tournament = await findTournament();
 
 /** @type {import('./$types').RequestHandler} */
-export const get = async ({ params }) => {
+export const GET = async ({ params }) => {
     if (!tournament.competitions.find((c) => c.name === params.name && c.section === params.section)) {
         return { status: 404 };
     }

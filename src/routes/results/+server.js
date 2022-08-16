@@ -1,6 +1,6 @@
 import { findResultsByAgeGroup } from "$lib/db";
 
-export const get = async () => {
+export const GET = async () => {
     return {
         body: await findResultsByAgeGroup("U11"),
     };

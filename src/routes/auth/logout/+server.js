@@ -1,4 +1,4 @@
-export const get = async ({ request }) => {
+export const GET = async ({ request }) => {
     return {
         status: 302,
         headers: {

@@ -4,7 +4,7 @@ const url = authClient.generateAuthUrl({
     scope: ["email", "profile"],
 });
 
-export const get = async ({ request }) => {
+export const GET = async ({ request }) => {
     return {
         status: 302,
         headers: {

@@ -1,7 +1,7 @@
 import { getNews, saveNews } from "$lib/db";
 import { io } from "$lib/socket-client";
 
-export const get = async () => {
+export const GET = async () => {
     return {
         body: { _news: await getNews() },
     };

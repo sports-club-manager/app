@@ -1,7 +1,7 @@
 import { authClient, buildTokenFor } from "$lib/auth";
 import { findOrCreateUser } from "$lib/db";
 
-export const get = async ({ url }) => {
+export const GET = async ({ url }) => {
     const code = url.searchParams.get("code");
 
     if (code) {

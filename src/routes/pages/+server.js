@@ -1,6 +1,6 @@
 import { getPageList } from "$lib/db";
 
-export async function get() {
+export async function GET() {
     return {
         body: { pages: await getPageList() },
     };
