@@ -23,6 +23,10 @@ export const findResult = async (id) => {
     return await Result.findById(id);
 };
 
+export const findResults = async () => {
+    return await Result.find();
+};
+
 export const findResultsByAgeGroup = async (name) => {
     return await Result.find({ "competition.name": name });
 };

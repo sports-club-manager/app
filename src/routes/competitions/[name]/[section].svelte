@@ -110,7 +110,7 @@
                 Other sections for this age group:<br />
 
                 {#each otherComps as { section }}
-                    <Button class="header-link" href="/competitions/{name}/{section}">{section}</Button>
+                    <Button name={`${section} Section`} class="header-link" href="/competitions/{name}/{section}">{section}</Button>
                 {/each}
             </p>
         {/if}
