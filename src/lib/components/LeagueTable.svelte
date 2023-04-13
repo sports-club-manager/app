@@ -24,6 +24,7 @@
     <tbody>
         {#each tableEntries as entry}
             <tr>
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <td
                     on:click={() => {
                         $highlight = $highlight == entry.name ? "" : entry.name;

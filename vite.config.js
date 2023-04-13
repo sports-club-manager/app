@@ -1,8 +1,8 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import injectSocketServer from "./src/lib/socket-server.js";
+import injectSocketServer from "./src/lib/server/socket-server.js";
+import { defineConfig } from "vite";
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
     resolve: {
         alias: {
             "xmlhttprequest-ssl": "./node_modules/engine.io-client/lib/xmlhttprequest.js",
@@ -17,6 +17,4 @@ const config = {
             },
         },
     ],
-};
-
-export default config;
+});

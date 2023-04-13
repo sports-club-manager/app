@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "bd132e05-7981-48b3-877c-7f7ac834825d",
+    "colId": "3ece4fb3-5f9f-48b3-bb52-643871d59a52",
+    "containerId": "",
+    "name": "GET /api/tournaments",
+    "url": "{{VITE_HOST_URL}}/api/tournaments",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-04-12T23:15:51.905Z",
+    "modified": "2023-04-12T23:38:28.698Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "9b75ae55-e35a-4648-9b0f-8c90f43cf424",
+    "colId": "3ece4fb3-5f9f-48b3-bb52-643871d59a52",
+    "containerId": "",
+    "name": "GET /api/results",
+    "url": "{{VITE_HOST_URL}}/api/results",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-04-12T23:38:14.579Z",
+    "modified": "2023-04-12T23:38:14.579Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "3faaa067-97af-465e-b409-bd5b0f695fc2",
+    "colId": "3ece4fb3-5f9f-48b3-bb52-643871d59a52",
+    "containerId": "",
+    "name": "GET /api/leaguetable",
+    "url": "{{VITE_HOST_URL}}/api/leaguetable/U11/A/1",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-04-12T23:41:14.747Z",
+    "modified": "2023-04-12T23:43:25.732Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "5460f7cb-9d9a-4fc8-82b6-3a41ea6377ff",
+    "colId": "3ece4fb3-5f9f-48b3-bb52-643871d59a52",
+    "containerId": "",
+    "name": "GET /api/pages",
+    "url": "{{VITE_HOST_URL}}/api/pages",
+    "method": "GET",
+    "sortNum": 25000,
+    "created": "2023-04-12T23:48:37.299Z",
+    "modified": "2023-04-12T23:48:52.215Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

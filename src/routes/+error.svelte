@@ -1,5 +1,5 @@
 <script>
-    import { page } from '$app/stores';
+    import { page } from "$app/stores";
     import Section from "$lib/components/Section.svelte";
 
     let { error, status } = page;

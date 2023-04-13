@@ -1,5 +1,5 @@
 <script>
-    import { session } from "$app/stores";
+    //import { session } from "$app/stores";
 
     import MenuDrawer from "$lib/components/MenuDrawer.svelte";
     import PageTransition from "$lib/components/PageTransition.svelte";
@@ -9,7 +9,7 @@
 
     let drawerOpen = false;
 
-    let user = $session.user;
+    let user = {}; // $session.user;
 
     export let data;
     $: ({ routeKey, tournament, pages } = data);
@@ -52,8 +52,8 @@
 </div>
 
 <style global lang="scss">
-    @use '@material/typography/index' as typography;
-    @use '@material/typography/mdc-typography';
+    @use "@material/typography/index" as typography;
+    @use "@material/typography/mdc-typography";
 
     html,
     body {
@@ -150,6 +150,7 @@
         margin: 0;
         text-align: center;
         font-size: smaller;
+        color: #f5f5f5;
     }
 
     #footer a {

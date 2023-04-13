@@ -1,11 +1,11 @@
 $background: rgba(24, 24, 24, 0.96);
 
 @use "@material/theme/index" as theme with (
-  $primary: #a00,
-  $secondary: #ccc,
-  $surface: #222,
-  $background: $background,
-  $error: #f00
+    $primary: #a00,
+    $secondary: #ccc,
+    $surface: #222,
+    $background: $background,
+    $error: #f00
 );
 @use "@smui-extra/accordion/style" as accordion;
 

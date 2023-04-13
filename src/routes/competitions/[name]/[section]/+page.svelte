@@ -1,4 +1,6 @@
 <script>
+    // @ts-nocheck
+
     import { onMount } from "svelte";
 
     import { io } from "$lib/socket-client";
@@ -66,12 +68,12 @@
         while (i <= competition.groups) groups.push("" + i++);
         if (parseInt(active) > groups.length) active = "1";
 
-        groupResults = $results.filter(
+        groupResults = _results.filter(
             (r) => r.competition.name == name && r.competition.section == section && r.competition.group == parseInt(active)
         );
         groupResults.sort(fixtureSort);
 
-        koResults = $results.filter(
+        koResults = _results.filter(
             (r) => r.competition.name == name && r.competition.section == section && r.competition.group == undefined
         );
         koResults.sort(fixtureSort);

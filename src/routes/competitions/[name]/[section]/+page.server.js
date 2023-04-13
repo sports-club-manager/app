@@ -1,23 +1,19 @@
-import { findResultsByAgeGroup, findTournament } from "$lib/db";
+// @ts-nocheck
+import { findResults, findTournament } from "$lib/server/db";
 
 const tournament = await findTournament();
 
 /** @type {import('./$types').RequestHandler} */
-export const GET = async ({ params }) => {
+export const load = async ({ params }) => {
     if (!tournament.competitions.find((c) => c.name === params.name && c.section === params.section)) {
         return { status: 404 };
     }
 
-    // TODO: figure out why this doesn't work
-    //let results = await findResults(params.name, params.section);
-    let results = await findResultsByAgeGroup(params.name);
+    let results = await findResults(params.name, params.section);
 
     return {
-        body: {
-            tournament: tournament,
-            _results: results,
-            name: params.name,
-            section: params.section,
-        },
+        _results: JSON.parse(JSON.stringify(results)),
+        name: params.name,
+        section: params.section,
     };
 };

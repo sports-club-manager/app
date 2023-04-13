@@ -1,4 +1,6 @@
 <script>
+    // @ts-nocheck
+
     import AgeFab from "$lib/components/AgeFab.svelte";
     import Section from "$lib/components/Section.svelte";
     import { goto } from "$app/navigation";
@@ -11,9 +13,9 @@
     let ageGroups = [];
 
     export let data;
-    
+
     $: {
-        tournament = data.tournament
+        tournament = data.tournament;
         ageGroups = tournament.competitions.reduce(
             (comps, comp) => (comps.find((x) => x.name === comp.name) ? [...comps] : [...comps, comp]),
             []

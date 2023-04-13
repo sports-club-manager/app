@@ -2,22 +2,21 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         %sveltekit.head%
-        <link rel="apple-touch-icon" type="image/webp" href="/icons/icon-152x152.webp" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" type="image/webp" href="/icons/icon-128x128.webp" />
+        <link rel="apple-touch-icon" type="image/webp" href="%sveltekit.assets%/icons/icon-152x152.webp" />
+        <link rel="manifest" href="%sveltekit.assets%/manifest.json" />
+        <link rel="icon" type="image/webp" href="%sveltekit.assets%/icons/icon-128x128.webp" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Condensed" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Mono" />
-        <link rel="stylesheet" href="/styles/light.css" media="(prefers-color-scheme: light)" />
-        <link rel="stylesheet" href="/styles/dark.css" media="screen and (prefers-color-scheme: dark)" />
+        <link rel="stylesheet" type="text/css" href="%sveltekit.assets%/styles/light.css" media="(prefers-color-scheme: light)" />
+        <link rel="stylesheet" type="text/css" href="%sveltekit.assets%/styles/dark.css" media="screen and (prefers-color-scheme: dark)" />
     </head>
-    <body id="svelte">
-        %sveltekit.body%
+    <body data-sveltekit-preload-data="hover">
+        <div style="display: contents">%sveltekit.body%</div>
     </body>
 </html>

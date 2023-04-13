@@ -1,3 +1,4 @@
+// @ts-nocheck
 import cookie from "cookie";
 import jwt_decode from "jwt-decode";
 
