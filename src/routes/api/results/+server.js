@@ -1,6 +1,8 @@
-// @ts-nocheck
+// @ts-ignore
 import { findResultsByAgeGroup } from "$lib/server/db";
+import { json } from "@sveltejs/kit";
 
+/** @type {import('./$types').RequestHandler} */
 export const GET = async () => {
-    return new Response(await findResultsByAgeGroup("U11"));
+    return json(await findResultsByAgeGroup("U11"));
 };

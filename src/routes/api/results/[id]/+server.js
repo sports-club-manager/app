@@ -1,11 +1,10 @@
 // @ts-nocheck
 import { updateResult, findResult, removeResult, updateStageTwo } from "$lib/server/db";
 import { io } from "$lib/socket-client";
+import { json } from "@sveltejs/kit";
 
 export const GET = async ({ params }) => {
-    return {
-        body: await findResult(params.id),
-    };
+    return json(await findResult(params.id));
 };
 
 export const PUT = async ({ params, request }) => {
@@ -30,10 +29,7 @@ export const PUT = async ({ params, request }) => {
         }
     }
 
-    return {
-        status: 200,
-        body: result,
-    };
+    return json({ result }, { status: 201 });
 };
 
 export const DELETE = async ({ params }) => {
@@ -43,12 +39,5 @@ export const DELETE = async ({ params }) => {
     console.log(`broadcasting deleted result: ${params.id}`);
     io.emit("remove-result", params.id);
 
-    return {
-        status: 204,
-    };
-
-    // TODO: fix
-    return {
-        error: "oops",
-    };
+    return new Response(null, { status: 204 });
 };

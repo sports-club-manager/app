@@ -1,5 +1,6 @@
 import { saveNews } from "$lib/server/db";
 import { io } from "$lib/socket-client";
+import { json } from "@sveltejs/kit";
 
 // @ts-nocheck
 export const POST = async ({ request }) => {
@@ -8,10 +9,5 @@ export const POST = async ({ request }) => {
     // broadcast the news on the socket
     io.emit("save-news", newsItem);
 
-    return {
-        headers: {
-            "status": 201,
-        },
-        body: newsItem,
-    };
+    return json({ newsItem }, { status: 201 });
 };

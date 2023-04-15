@@ -1,6 +1,7 @@
 import { getPageList } from "$lib/server/db";
+import { json } from "@sveltejs/kit";
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET() {
-    return new Response(JSON.stringify({ pages: await getPageList() }));
-}
+export const GET = async () => {
+    return json({ pages: await getPageList() });
+};

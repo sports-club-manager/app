@@ -18,5 +18,5 @@ export const POST = async ({ params, request }) => {
         }
     }
 
-    return new Response();
+    return new Response(null, { status: 201 });
 };
