@@ -12,7 +12,7 @@ export const load = async ({ params }) => {
     let results = await findResults(params.name, params.section);
 
     return {
-        _results: JSON.parse(JSON.stringify(results)),
+        results: JSON.parse(JSON.stringify(results)),
         name: params.name,
         section: params.section,
     };
