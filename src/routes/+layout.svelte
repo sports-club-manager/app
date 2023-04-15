@@ -122,11 +122,6 @@
         font-weight: normal;
     }
 
-    .team-highlight {
-        font-weight: bold;
-        text-decoration: underline dotted;
-    }
-
     .flex-layout {
         flex-direction: column;
         min-height: 100vh;

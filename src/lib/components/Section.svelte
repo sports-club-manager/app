@@ -35,13 +35,6 @@
         margin-left: 90px;
     }
 
-    * :global(.section-head .content a) {
-        color: inherit;
-        border-bottom: 1px dotted whitesmoke;
-        text-decoration: none;
-        text-transform: uppercase;
-    }
-
     div.raw-content {
         padding: 10px;
     }
