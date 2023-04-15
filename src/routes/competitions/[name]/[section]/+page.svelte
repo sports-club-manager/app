@@ -4,13 +4,12 @@
     import { onMount } from "svelte";
 
     import { io } from "$lib/socket-client";
-    import { results } from "$lib/stores";
 
     import ResultList from "$lib/components/ResultList.svelte";
     import LeagueTable from "$lib/components/LeagueTable.svelte";
     import Section from "$lib/components/Section.svelte";
 
-    import Tab, { Label } from "@smui/tab";
+    import Tab, { Icon, Label } from "@smui/tab";
     import Button from "@smui/button";
     import TabBar from "@smui/tab-bar";
     import LayoutGrid, { Cell } from "@smui/layout-grid";
@@ -22,20 +21,18 @@
 
     // ----------------------------------------------------------------------
 
-    results.set(...[_results]);
+    //results.set(...[_results]);
 
     onMount(() => {
         io.on("save-result", (result) => {
             console.debug("Received result", result);
-            results.update((r) => {
-                for (let i = 0; i < r.length; i++) {
-                    if (r[i]._id == result._id) {
-                        r[i] = result;
-                        break;
-                    }
+            for (let i = 0; i < _results.length; i++) {
+                if (_results[i]._id == result._id) {
+                    console.debug(`Found result to update: ${i}`);
+                    _results[i] = result;
+                    break;
                 }
-                return r;
-            });
+            }
         });
 
         io.on("remove-result", (data) => {
@@ -113,7 +110,10 @@
                 Other sections for this age group:<br />
 
                 {#each otherComps as { section }}
-                    <Button name={`${section} Section`} class="header-link" href="/competitions/{name}/{section}">{section}</Button>
+                    <Button name={`${section} Section`} color="secondary" href="/competitions/{name}/{section}">
+                        <Icon class="material-icons">sports_soccer</Icon>
+                        <Label>{section}</Label>
+                    </Button>
                 {/each}
             </p>
         {/if}
@@ -171,10 +171,10 @@
         margin: 0;
     }
 
-    * :global(.header-link) {
-        color: inherit;
-        border-bottom: 1px dotted var(--mdc-theme-on-primary, whitesmoke);
-        text-decoration: none;
+    * :global(.team-highlight) {
+        font-weight: bold;
+        color: lightgreen;
+        font-size: smaller;
         text-transform: uppercase;
     }
 </style>
