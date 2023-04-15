@@ -17,27 +17,31 @@
     import moment from "moment-timezone";
 
     export let data;
-    $: ({ tournament, name, section, _results } = data);
+    $: ({ tournament, name, section, results } = data);
 
     // ----------------------------------------------------------------------
-
-    //results.set(...[_results]);
 
     onMount(() => {
         io.on("save-result", (result) => {
             console.debug("Received result", result);
-            for (let i = 0; i < _results.length; i++) {
-                if (_results[i]._id == result._id) {
+            for (let i = 0; i < results.length; i++) {
+                if (results[i]._id == result._id) {
                     console.debug(`Found result to update: ${i}`);
-                    _results[i] = result;
+                    results[i] = result;
                     break;
                 }
             }
         });
 
-        io.on("remove-result", (data) => {
-            console.debug("Result deleted", data);
-            // TODO implement
+        io.on("remove-result", (resultId) => {
+            console.debug("Result deleted", resultId);
+            for (let i = 0; i < results.length; i++) {
+                if (results[i]._id == resultId) {
+                    console.debug(`Found result to remove: ${i}`);
+                    results.splice(i, 1);
+                    break;
+                }
+            }
         });
     });
 
@@ -65,12 +69,12 @@
         while (i <= competition.groups) groups.push("" + i++);
         if (parseInt(active) > groups.length) active = "1";
 
-        groupResults = _results.filter(
+        groupResults = results.filter(
             (r) => r.competition.name == name && r.competition.section == section && r.competition.group == parseInt(active)
         );
         groupResults.sort(fixtureSort);
 
-        koResults = _results.filter(
+        koResults = results.filter(
             (r) => r.competition.name == name && r.competition.section == section && r.competition.group == undefined
         );
         koResults.sort(fixtureSort);
