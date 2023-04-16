@@ -2,7 +2,6 @@
     // @ts-nocheck
 
     import { goto } from "$app/navigation";
-    import { page } from "$app/stores";
 
     import Drawer, { Content, Header, Title, Subtitle, Scrim } from "@smui/drawer";
     import List, { Item, Text, Graphic, Separator, Subheader, PrimaryText, SecondaryText } from "@smui/list";

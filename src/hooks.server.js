@@ -27,16 +27,6 @@ export const handle = sequence(
             GoogleProvider({
                 clientId: GOOGLE_OAUTH_CLIENT_ID,
                 clientSecret: GOOGLE_OAUTH_CLIENT_SECRET,
-                // profile(profile) {
-                //     console.debug(`google profile is ${JSON.stringify(profile)}`);
-                //     return {
-                //         id: profile.email,
-                //         name: profile.name,
-                //         email: profile.email,
-                //         emailVerified: profile.email_verified,
-                //         photo: profile.picture,
-                //     };
-                // },
             }),
         ],
     }),
