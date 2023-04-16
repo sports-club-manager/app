@@ -1,6 +1,6 @@
 // @ts-nocheck
 /** @type {import('./$types').LayoutServerLoad} */
-export const load = async ({ url, fetch }) => {
+export const load = async ({ url, fetch, locals }) => {
     const pathComponents = url.pathname.split("/");
     let idx = pathComponents.length > 1 ? 1 : 0;
 
@@ -12,20 +12,8 @@ export const load = async ({ url, fetch }) => {
     data = await response.json();
     let _p = data.pages;
 
-    /*
     return {
-        props: {
-            routeKey: pathComponents[idx],
-            tournament: _t,
-            pages: _p,
-        },
-        stuff: {
-            tournament: _t,
-            pages: _p,
-        },
-    };
-    */
-    return {
+        session: await locals.getSession(),
         routeKey: pathComponents[idx],
         tournament: _t,
         pages: _p,

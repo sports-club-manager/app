@@ -1,5 +1,5 @@
 <script>
-    //import { session } from "$app/stores";
+    import { page } from "$app/stores";
 
     import MenuDrawer from "$lib/components/MenuDrawer.svelte";
     import PageTransition from "$lib/components/PageTransition.svelte";
@@ -9,7 +9,7 @@
 
     let drawerOpen = false;
 
-    let user = {}; // $session.user;
+    let user = $page.data.session?.user;
 
     export let data;
     $: ({ routeKey, tournament, pages } = data);

@@ -1,5 +1,8 @@
 <script>
+    // @ts-nocheck
+
     import { goto } from "$app/navigation";
+    import { page } from "$app/stores";
 
     import Drawer, { Content, Header, Title, Subtitle, Scrim } from "@smui/drawer";
     import List, { Item, Text, Graphic, Separator, Subheader, PrimaryText, SecondaryText } from "@smui/list";
@@ -8,6 +11,7 @@
         pages,
         user,
         open = false;
+
     let active = "Home";
 
     function setActive(value, location) {
@@ -28,7 +32,7 @@
         {#if user && user.name}
             <List twoLine avatarList>
                 <Item>
-                    <Graphic><img style="height: 40px;width: 40px" class="mdc-fab" src={user.photo} alt={user.name} /></Graphic>
+                    <Graphic class="avatar" style="background-image: url({user.image})" />
                     <Text>
                         <PrimaryText>{user.name}</PrimaryText>
                         <SecondaryText>{user.email}</SecondaryText>
@@ -38,12 +42,12 @@
         {/if}
         <List>
             {#if !(user && user.name)}
-                <Item href="#" on:click={() => goto(`/auth/google/login`)}>
+                <Item href="#" on:click={() => goto(`/auth/signin`)}>
                     <Graphic class="material-icons" aria-hidden="true">login</Graphic>
                     <Text>Login</Text>
                 </Item>
             {:else}
-                <Item href="#" on:click={() => goto(`/auth/logout`)}>
+                <Item href="#" on:click={() => goto(`/auth/signout`)}>
                     <Graphic class="material-icons" aria-hidden="true">logout</Graphic>
                     <Text>Logout</Text>
                 </Item>
@@ -75,3 +79,11 @@
     </Content>
 </Drawer>
 <Scrim />
+
+<style>
+    :global(.avatar) {
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+</style>

@@ -32,6 +32,8 @@
         "format": "prettier --plugin-search-dir . --write ."
     },
     "devDependencies": {
+        "@auth/core": "^0.5.1",
+        "@auth/sveltekit": "^0.3.0",
         "@playwright/test": "^1.28.1",
         "@smui-extra/accordion": "^7.0.0-beta.3",
         "@smui/button": "^7.0.0-beta.3",
@@ -52,11 +54,12 @@
         "@smui/top-app-bar": "^7.0.0-beta.3",
         "@sports-club-manager/leaguesort": "^1.2.0",
         "@sveltejs/adapter-auto": "^2.0.0",
+        "@sveltejs/adapter-node": "^1.2.3",
         "@sveltejs/kit": "^1.5.0",
-        "cookie": "^0.5.0",
         "eslint": "^8.28.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-svelte3": "^4.0.0",
+        "express": "^4.18.2",
         "marked": "^4.3.0",
         "moment-timezone": "^0.5.43",
         "mongoose": "^7.0.3",
@@ -64,15 +67,12 @@
         "prettier-plugin-svelte": "^2.8.1",
         "sass": "^1.62.0",
         "smui-theme": "^7.0.0-beta.3",
+        "socket.io": "^4.6.1",
+        "socket.io-client": "^4.6.1",
         "svelte": "^3.54.0",
         "svelte-check": "^3.0.1",
         "svelte-material-ui": "^7.0.0-beta.3",
         "typescript": "^5.0.0",
         "vite": "^4.2.0"
-    },
-    "dependencies": {
-        "express": "^4.18.2",
-        "socket.io": "^4.6.1",
-        "socket.io-client": "^4.6.1"
     }
 }
