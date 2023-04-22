@@ -1,15 +1,13 @@
 // @ts-nocheck
 import mongoose from "mongoose";
-import { browser } from "$app/environment";
-import { MONGO_URI } from "$env/static/private";
+import { MongoClient } from "mongodb";
+
+import { MONGO_URI, NODE_ENV } from "$env/static/private";
 
 import { Tournament } from "$lib/server/db/models/Tournament";
 import { Result } from "$lib/server/db/models/Result";
 import { News } from "$lib/server/db/models/News";
 import { Page } from "$lib/server/db/models/Page";
-import { User } from "$lib/server/db/models/User";
-
-const ROLE_GUEST = "guest";
 
 // --------------------------------------------------------------------------
 // tournament data
@@ -80,67 +78,56 @@ export const saveNews = async (news) => {
     return await News.create(news);
 };
 
-// --------------------------------------------------------------------------
-// user data
-// --------------------------------------------------------------------------
-export const findOrCreateUser = async (profile) => {
-    let user = await User.findOne({ providerId: profile.id, providerName: profile.provider });
-
-    if (user !== null) {
-        console.debug(`User lookup returned ${user.email}`);
-    } else {
-        console.debug(`Creating new user ${profile.email}`);
-        try {
-            user = await User.create({
-                providerId: profile.id,
-                providerName: profile.provider,
-                email: profile.email,
-                photo: profile.picture,
-                displayName: profile.name,
-                roles: [ROLE_GUEST],
-            });
-        } catch (err) {
-            console.error("Failed to create user", err);
-        }
-    }
-
-    return user;
-};
-
 export const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 // --------------------------------------------------------------------------
 // setup
 // --------------------------------------------------------------------------
-if (!browser) {
-    (async () => {
-        try {
-            mongoose.connect(MONGO_URI, mongoOptions);
+let client;
+let clientPromise = Promise;
 
-            mongoose.connection.on("connected", () => {
-                console.info(`Mongoose connected`);
-            });
-
-            mongoose.connection.on("error", (err) => {
-                console.error(`Mongoose connection error: ${err}`);
-            });
-
-            mongoose.connection.on("disconnected", () => {
-                console.warn("Mongoose disconnection event");
-            });
-
-            mongoose.connection.on("reconnected", () => {
-                console.warn("Mongoose reconnection event");
-            });
-
-            const dbShutdown = (msg, callback) => {
-                mongoose.connection.close(() => {
-                    console.debug(`Mongoose disconnected through ${msg}`);
-                    callback();
-                });
-            };
-        } catch (err) {
-            console.error(err);
-        }
-    })();
+if (NODE_ENV === "development") {
+    // In development mode, use a global variable so that the value
+    // is preserved across module reloads caused by HMR (Hot Module Replacement).
+    if (!global._mongoClientPromise) {
+        client = new MongoClient(MONGO_URI, mongoOptions);
+        global._mongoClientPromise = client.connect();
+    }
+    clientPromise = global._mongoClientPromise;
+} else {
+    client = new MongoClient(MONGO_URI, mongoOptions);
+    clientPromise = client.connect();
 }
+
+export const dbClientPromise = clientPromise;
+
+(async () => {
+    try {
+        mongoose.connect(MONGO_URI, mongoOptions);
+
+        mongoose.connection.on("connected", () => {
+            console.info(`Mongoose connected`);
+        });
+
+        mongoose.connection.on("error", (err) => {
+            console.error(`Mongoose connection error: ${err}`);
+        });
+
+        mongoose.connection.on("disconnected", () => {
+            console.warn("Mongoose disconnection event");
+        });
+
+        mongoose.connection.on("reconnected", () => {
+            console.warn("Mongoose reconnection event");
+        });
+
+        const dbShutdown = (msg, callback) => {
+            mongoose.connection.close(() => {
+                console.debug(`Mongoose disconnected through ${msg}`);
+                callback();
+            });
+        };
+    } catch (err) {
+        console.error(err);
+    }
+})();
