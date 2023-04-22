@@ -1,6 +1,7 @@
 // @ts-nocheck
 import mongoose from "mongoose";
 import { browser } from "$app/environment";
+import { MONGO_URI } from "$env/static/private";
 
 import { Tournament } from "$lib/server/db/models/Tournament";
 import { Result } from "$lib/server/db/models/Result";
@@ -106,19 +107,18 @@ export const findOrCreateUser = async (profile) => {
     return user;
 };
 
+export const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
 // --------------------------------------------------------------------------
 // setup
 // --------------------------------------------------------------------------
-let mongoUri = import.meta.env.VITE_MONGO_URI || "mongodb://localhost/scm-dev";
-let mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-
 if (!browser) {
     (async () => {
         try {
-            mongoose.connect(mongoUri, mongoOptions);
+            mongoose.connect(MONGO_URI, mongoOptions);
 
             mongoose.connection.on("connected", () => {
-                console.info(`Mongoose connected to ${mongoUri}`);
+                console.info(`Mongoose connected`);
             });
 
             mongoose.connection.on("error", (err) => {

@@ -36,9 +36,14 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2023-04-12T23:41:14.747Z",
-    "modified": "2023-04-12T23:43:25.732Z",
+    "modified": "2023-04-16T17:27:02.652Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "[\"Newcastle\", \"Arsenal\", \"Man. Utd.\", \"Chelsea\", \"Liverpool\"]",
+      "form": []
+    },
     "tests": []
   },
   {
@@ -60,16 +65,21 @@
     "colId": "3ece4fb3-5f9f-48b3-bb52-643871d59a52",
     "containerId": "",
     "name": "/api/results",
-    "url": "{{VITE_HOST_URL}}/api/results/62afbb50be83793357662f24",
+    "url": "{{VITE_HOST_URL}}/api/results/643c1d30f6c70666c2d66f81",
     "method": "PUT",
     "sortNum": 22500,
     "created": "2023-04-16T15:30:40.296Z",
-    "modified": "2023-04-16T15:32:21.530Z",
-    "headers": [],
+    "modified": "2023-04-17T23:23:09.039Z",
+    "headers": [
+      {
+        "name": "Cookie",
+        "value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6ME-4W7_5jm2Jkt1.eBbgt3QqOOWJGG1XnhML7v7z6EH71X1SRbfr3YjneYcKRqyuPEzqLAClyDCVMG6NymQ8geF8OX_XmoATuMvdkC6DcqimmXV5ujponQSJS0v50lSaIQO9N3EmhZEmiedaszM7x4dsPn6Vg1VeawKaX9xkntCnDsRnnUN0PcKTjYKwupuZbLGW2UsFrGhbMDkwnvmtj8H1ilRlipEsoZmPIgbyy1OfToqonkwniPyO0SeINLYd4B1srgZ3VafYorg4F-d2HjJfAT0nS9e76Efvnxv6Lvqr3-KqFKi_pBJh6rf-nmLGbAzC0lc32ZOtSxZgdLVtVtbmUp9KjncbYd8dwy0xPUKFPvpoNA.a_808A9v03yY2jOY38TBDQ "
+      }
+    ],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "\n  {\n    \"competition\": {\n      \"name\": \"U11\",\n      \"section\": \"A\",\n      \"group\": 2\n    },\n    \"_id\": \"62afbb50be83793357662f24\",\n    \"__v\": 0,\n    \"day\": 1,\n    \"dateTime\": 35100000,\n    \"duration\": \"8m\",\n    \"pitch\": \"2\",\n    \"tag\": \"6\",\n    \"homeTeam\": \"Man. City\",\n    \"awayTeam\": \"Aston Villa\",\n    \"homeGoals\": 2,\n    \"awayGoals\": 1\n  }\n  ",
+      "raw": "\n  {\n    \"competition\": {\n      \"name\": \"U11\",\n      \"section\": \"A\",\n      \"group\": 2\n    },\n    \"__v\": 0,\n    \"day\": 1,\n    \"dateTime\": 32400000,\n    \"duration\": \"8m\",\n    \"pitch\": \"2\",\n    \"tag\": \"3\",\n    \"homeTeam\": \"Spurs\",\n    \"awayTeam\": \"Man. City\",\n    \"homeGoals\": 0,\n    \"awayGoals\": 1\n  }\n  ",
       "form": []
     },
     "tests": []
