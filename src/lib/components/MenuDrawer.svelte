@@ -33,7 +33,7 @@
                 <Item>
                     <Graphic class="avatar" style="background-image: url({user.image})" />
                     <Text>
-                        <PrimaryText>{user.name}</PrimaryText>
+                        <PrimaryText>{user.name} ({user.role})</PrimaryText>
                         <SecondaryText>{user.email}</SecondaryText>
                     </Text>
                 </Item>

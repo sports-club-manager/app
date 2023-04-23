@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { highlight } from "$lib/stores";
     import moment from "moment-timezone";
 
@@ -38,6 +40,7 @@
             {#each results as result}
                 <tr>
                     <td class="text-center text-muted info-col" style="width:20px">{result.tag}</td>
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <td
                         on:click={() => {
                             $highlight = $highlight == result.homeTeam ? "" : result.homeTeam;
@@ -54,6 +57,7 @@
                         <td class="text-right points" style="width:15px">{homeScore(result)}</td>
                         <td class="text-left points" style="width:15px">{awayScore(result)}</td>
                     {/if}
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <td
                         on:click={() => {
                             $highlight = $highlight == result.awayTeam ? "" : result.awayTeam;
