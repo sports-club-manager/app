@@ -8,23 +8,23 @@ export const GET = async ({ params }) => {
 };
 
 export const PUT = async ({ params, request }) => {
-    console.log(`request.PUT ${params.id}`);
+    logger.debug(`request.PUT ${params.id}`);
     const result = await updateResult(params.id, await request.json());
 
     // broadcast the updated result on the socket
-    console.log(`broadcasting updated result: ${result}`);
+    logger.debug(`broadcasting updated result: ${result}`);
     io.emit("save-result", result);
 
     // search and replace stage2 tag
     if ("stage2Tag" in result && result.stage2Tag !== undefined) {
-        console.debug(`Searching for stage 2 target ${result.stage2Tag}`);
+        logger.debug(`Searching for stage 2 target ${result.stage2Tag}`);
         var winner = result.homeTeam;
         if (result.awayPens > result.homePens || result.awayGoals > result.homeGoals) {
             winner = result.awayTeam;
         }
         const updated = await updateStageTwo(result.stage2Tag, winner);
         for (var i = 0; i < updated.length; i++) {
-            console.debug(`Emiting updated stage2 result ${JSON.stringify(updated[i])}`);
+            logger.debug(`Emiting updated stage2 result ${JSON.stringify(updated[i])}`);
             io.emit("save-result", updated[i]);
         }
     }
@@ -36,7 +36,7 @@ export const DELETE = async ({ params }) => {
     const res = await removeResult(params.id);
 
     // broadcast the deleted result on the socket
-    console.log(`broadcasting deleted result: ${params.id}`);
+    logger.debug(`broadcasting deleted result: ${params.id}`);
     io.emit("remove-result", params.id);
 
     return new Response(null, { status: 204 });

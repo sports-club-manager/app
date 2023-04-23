@@ -8,6 +8,7 @@ import { Tournament } from "$lib/server/db/models/Tournament";
 import { Result } from "$lib/server/db/models/Result";
 import { News } from "$lib/server/db/models/News";
 import { Page } from "$lib/server/db/models/Page";
+import { logger } from "$lib/server/logger";
 
 // --------------------------------------------------------------------------
 // tournament data
@@ -45,7 +46,7 @@ export const updateResult = async (id, result) => {
 };
 
 export const updateStageTwo = async (source, target) => {
-    console.debug(`Updating ${source} to ${target}`);
+    logger.debug(`Updating ${source} to ${target}`);
     await Result.updateMany({ homeTeamFrom: source }, { $set: { homeTeam: target } });
     await Result.updateMany({ awayTeamFrom: source }, { $set: { awayTeam: target } });
     return Result.find({ $or: [{ homeTeamFrom: source }, { awayTeamFrom: source }] });
@@ -74,7 +75,7 @@ export const getNews = async () => {
 };
 
 export const saveNews = async (news) => {
-    console.debug(`Saving ${JSON.stringify(news)}`);
+    logger.debug(`Saving ${JSON.stringify(news)}`);
     return await News.create(news);
 };
 
@@ -106,28 +107,28 @@ export const dbClientPromise = clientPromise;
         mongoose.connect(MONGO_URI, mongoOptions);
 
         mongoose.connection.on("connected", () => {
-            console.info(`Mongoose connected`);
+            logger.info(`Mongoose connected`);
         });
 
         mongoose.connection.on("error", (err) => {
-            console.error(`Mongoose connection error: ${err}`);
+            logger.error(`Mongoose connection error: ${err}`);
         });
 
         mongoose.connection.on("disconnected", () => {
-            console.warn("Mongoose disconnection event");
+            logger.warn("Mongoose disconnection event");
         });
 
         mongoose.connection.on("reconnected", () => {
-            console.warn("Mongoose reconnection event");
+            logger.warn("Mongoose reconnection event");
         });
 
         const dbShutdown = (msg, callback) => {
             mongoose.connection.close(() => {
-                console.debug(`Mongoose disconnected through ${msg}`);
+                logger.debug(`Mongoose disconnected through ${msg}`);
                 callback();
             });
         };
     } catch (err) {
-        console.error(err);
+        logger.error(err);
     }
 })();

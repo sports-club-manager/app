@@ -10,6 +10,7 @@ import { GOOGLE_OAUTH_CLIENT_ID, GOOGLE_OAUTH_CLIENT_SECRET } from "$env/static/
 
 import { acl } from "$lib/server/acl";
 import { dbClientPromise } from "$lib/server/db";
+import { logger } from "$lib/server/logger";
 
 let authentication = SvelteKitAuth({
     adapter: MongoDBAdapter(dbClientPromise),
@@ -18,7 +19,8 @@ let authentication = SvelteKitAuth({
             clientId: GOOGLE_OAUTH_CLIENT_ID,
             clientSecret: GOOGLE_OAUTH_CLIENT_SECRET,
             profile(profile) {
-                console.debug(profile);
+                logger.debug("Profile received from provider or database:");
+                logger.debug(profile);
                 return {
                     id: profile.email,
                     email: profile.email,
@@ -40,13 +42,12 @@ let authentication = SvelteKitAuth({
 let authorization = async ({ event, resolve }) => {
     const session = await event.locals.getSession();
 
-    console.debug(session?.user);
     let permission = await acl
         .can(session?.user?.role || "guest")
         .execute(event.request.method)
         .on(event.url.pathname);
 
-    console.debug(`permission: ${JSON.stringify(permission)} is ${permission.granted ? "granted" : "denied"}`);
+    logger.debug(`${event.request.method} on permission: ${JSON.stringify(permission)} is ${permission.granted ? "granted" : "denied"}`);
     if (!permission.granted) {
         if (event.request.headers.get("Accept") == /text\/json/) {
             return json({ message: "Forbidden" }, { status: 403 });

@@ -6,7 +6,7 @@ const baseUrl = import.meta.env.VITE_HOST_URL;
 const socket = ioClient(baseUrl, { "connect timeout": 5000 });
 
 socket.on("connect", () => {
-    console.log(`Client socket connected with ID: ${socket.id}`);
+    console.info(`Client socket connected with ID: ${socket.id}`);
 });
 
 socket.on("connect_error", (error) => {

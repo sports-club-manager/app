@@ -36,8 +36,13 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2023-04-12T23:41:14.747Z",
-    "modified": "2023-04-16T17:27:02.652Z",
-    "headers": [],
+    "modified": "2023-04-23T01:28:47.994Z",
+    "headers": [
+      {
+        "name": "Cookie",
+        "value": "next-auth.session-token=a17921a1-c914-404c-9cba-3af3f440053a"
+      }
+    ],
     "params": [],
     "body": {
       "type": "json",
