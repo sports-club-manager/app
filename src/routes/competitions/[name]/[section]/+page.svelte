@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
-
+    import "$lib/global.scss";
+    
     import { onMount } from "svelte";
 
     import { io } from "$lib/socket-client";
@@ -173,12 +174,5 @@
         list-style: square inside;
         padding: 0;
         margin: 0;
-    }
-
-    * :global(.team-highlight) {
-        font-weight: bold;
-        color: lightgreen;
-        font-size: smaller;
-        text-transform: uppercase;
     }
 </style>
