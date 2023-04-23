@@ -1,6 +1,6 @@
 <script>
     // @ts-nocheck
-
+    import "$lib/global.scss";
     import { goto } from "$app/navigation";
 
     import Drawer, { Content, Header, Title, Subtitle, Scrim } from "@smui/drawer";
@@ -78,11 +78,3 @@
     </Content>
 </Drawer>
 <Scrim />
-
-<style>
-    :global(.avatar) {
-        background-size: contain;
-        background-position: center center;
-        background-repeat: no-repeat;
-    }
-</style>
