@@ -1,7 +1,8 @@
 <script>
-    import { highlight } from "$lib/stores";
-
+    // @ts-nocheck
     import leaguesort from "@sports-club-manager/leaguesort";
+
+    import { highlight } from "$lib/stores";
 
     export let results = [];
 

@@ -1,21 +1,17 @@
 <script>
     // @ts-nocheck
-    import "$lib/global.scss";
-    
     import { onMount } from "svelte";
-
-    import { io } from "$lib/socket-client";
-
-    import ResultList from "$lib/components/ResultList.svelte";
-    import LeagueTable from "$lib/components/LeagueTable.svelte";
-    import Section from "$lib/components/Section.svelte";
-
     import Tab, { Icon, Label } from "@smui/tab";
     import Button from "@smui/button";
     import TabBar from "@smui/tab-bar";
     import LayoutGrid, { Cell } from "@smui/layout-grid";
 
-    import moment from "moment-timezone";
+    import "$lib/global.scss";
+    import { io } from "$lib/socket-client";
+    import { dateTimeSort, saveRemoveResults, time } from "$lib/collections.js";
+    import ResultList from "$lib/components/ResultList.svelte";
+    import LeagueTable from "$lib/components/LeagueTable.svelte";
+    import Section from "$lib/components/Section.svelte";
 
     export let data;
     $: ({ tournament, name, section, results } = data);
@@ -54,13 +50,6 @@
     let koResults = [];
     let startTime, endTime;
 
-    let time = (dateTime) => moment(dateTime).tz("Europe/London").format("HH:mm");
-    let fixtureSort = (a, b) => {
-        if (a.dateTime < b.dateTime) return -1;
-        if (a.dateTime > b.dateTime) return 1;
-        return a.tag < b.tag ? -1 : 1;
-    };
-
     $: {
         otherComps = tournament.competitions.filter((c) => c.name === name && c.section !== section);
         competition = tournament.competitions.find((c) => c.name === name && c.section === section);
@@ -73,12 +62,12 @@
         groupResults = results.filter(
             (r) => r.competition.name == name && r.competition.section == section && r.competition.group == parseInt(active)
         );
-        groupResults.sort(fixtureSort);
+        groupResults.sort(dateTimeSort);
 
         koResults = results.filter(
             (r) => r.competition.name == name && r.competition.section == section && r.competition.group == undefined
         );
-        koResults.sort(fixtureSort);
+        koResults.sort(dateTimeSort);
 
         startTime = groupResults.length > 0 ? time(groupResults[0].dateTime) : "";
         endTime =

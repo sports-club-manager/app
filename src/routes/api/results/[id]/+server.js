@@ -1,7 +1,9 @@
 // @ts-nocheck
-import { updateResult, findResult, removeResult, updateStageTwo } from "$lib/server/db";
-import { io } from "$lib/socket-client";
 import { json } from "@sveltejs/kit";
+
+import { updateResult, findResult, removeResult, updateStageTwo } from "$lib/server/db";
+import { logger } from "$lib/server/logger.js";
+import { io } from "$lib/socket-client";
 
 export const GET = async ({ params }) => {
     return json(await findResult(params.id));

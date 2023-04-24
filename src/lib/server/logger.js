@@ -9,6 +9,6 @@ const level = process.env.LOG_LEVEL || "debug";
 
 export const logger = createLogger({
     level: level,
-    format: combine( colorize(), timestamp(), myFormat ),
+    format: combine(colorize(), timestamp(), myFormat),
     transports: [new transports.Console()],
 });
