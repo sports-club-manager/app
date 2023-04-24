@@ -25,7 +25,7 @@ export const findResult = async (id) => {
 };
 
 export const findResults = async () => {
-    return await Result.find();
+    return await Result.find({});
 };
 
 export const findResultsByAgeGroup = async (name) => {
