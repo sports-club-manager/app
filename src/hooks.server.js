@@ -42,10 +42,13 @@ let authentication = SvelteKitAuth({
 let authorization = async ({ event, resolve }) => {
     const session = await event.locals.getSession();
 
-    if (!permitted(session?.user?.role || "guest", event.request.method, event.url.pathname)) {
+    let allowed = await permitted(session?.user?.role || "guest", event.request.method, event.url.pathname);
+    if (!allowed) {
         if (event.request.headers.get("Accept") == /text\/json/) {
+            logger.error("User denied access to resource, sending 403");
             return json({ message: "Forbidden" }, { status: 403 });
         } else {
+            logger.error("User denied access to resource, redirecting via 303 to /");
             throw redirect(303, "/");
         }
     }
