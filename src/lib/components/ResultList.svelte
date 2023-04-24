@@ -1,12 +1,9 @@
 <script>
-// @ts-nocheck
-
+    // @ts-nocheck
     import { highlight } from "$lib/stores";
-    import moment from "moment-timezone";
+    import { time } from "$lib/collections";
 
     export let results = [];
-
-    let time = (dateTime) => moment(dateTime).tz("Europe/London").format("HH:mm");
 
     let homeScore = (res) => {
         if ("homeGoals" in res && res.homeGoals >= 0) {

@@ -8,7 +8,7 @@ import { sequence } from "@sveltejs/kit/hooks";
 
 import { GOOGLE_OAUTH_CLIENT_ID, GOOGLE_OAUTH_CLIENT_SECRET } from "$env/static/private";
 
-import { acl } from "$lib/server/acl";
+import { permitted } from "$lib/server/acl";
 import { dbClientPromise } from "$lib/server/db";
 import { logger } from "$lib/server/logger";
 
@@ -42,13 +42,7 @@ let authentication = SvelteKitAuth({
 let authorization = async ({ event, resolve }) => {
     const session = await event.locals.getSession();
 
-    let permission = await acl
-        .can(session?.user?.role || "guest")
-        .execute(event.request.method)
-        .on(event.url.pathname);
-
-    logger.debug(`${event.request.method} on permission: ${JSON.stringify(permission)} is ${permission.granted ? "granted" : "denied"}`);
-    if (!permission.granted) {
+    if (!permitted(session?.user?.role || "guest", event.request.method, event.url.pathname)) {
         if (event.request.headers.get("Accept") == /text\/json/) {
             return json({ message: "Forbidden" }, { status: 403 });
         } else {

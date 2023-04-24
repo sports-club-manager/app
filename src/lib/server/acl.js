@@ -1,44 +1,52 @@
+// @ts-nocheck
 import { AccessControl } from "role-acl";
+import { logger } from "$lib/server/logger";
 
-const _acl = new AccessControl();
+const acl = new AccessControl();
 
-_acl.grant({
+acl.grant({
     role: "guest",
     action: ["GET"],
     resource: "*",
     attributes: ["*"],
 });
 
-_acl.grant({
+acl.grant({
     role: "scorer",
     action: ["PUT"],
     resource: "/api/results/*",
     attributes: ["*"],
 });
 
-_acl.grant({
+acl.grant({
     role: "editor",
     action: ["*", "!DELETE"],
     resource: "/api/results/*",
     attributes: ["*"],
 });
 
-_acl.grant({
+acl.grant({
     role: "editor",
     action: ["*", "!DELETE"],
     resource: "/api/news",
     attributes: ["*"],
 });
 
-_acl.grant({
+acl.grant({
     role: "admin",
     action: "*",
     resource: "*",
     attributes: ["*"],
 });
 
-_acl.extendRole("scorer", "guest");
-_acl.extendRole("editor", "scorer");
-_acl.extendRole("admin", "editor");
+acl.extendRole("scorer", "guest");
+acl.extendRole("editor", "scorer");
+acl.extendRole("admin", "editor");
 
-export const acl = _acl;
+export const permitted = async (role, action, resource) => {
+    let permission = await acl.can(role).execute(action).on(resource);
+
+    logger.debug(`${action} on permission: ${JSON.stringify(permission)} is ${permission.granted ? "granted" : "denied"}`);
+
+    return permission.granted;
+};
