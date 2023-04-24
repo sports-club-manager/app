@@ -7,7 +7,7 @@ const acl = new AccessControl();
 acl.grant({
     role: "guest",
     action: ["GET"],
-    resource: "*",
+    resource: ["/", "/favicon.ico", "/api/*", "/news/*", "/pages/*", "/competitions/*"],
     attributes: ["*"],
 });
 
@@ -21,14 +21,7 @@ acl.grant({
 acl.grant({
     role: "editor",
     action: ["*", "!DELETE"],
-    resource: "/api/results/*",
-    attributes: ["*"],
-});
-
-acl.grant({
-    role: "editor",
-    action: ["*", "!DELETE"],
-    resource: "/api/news",
+    resource: ["/api/results/*", "/api/news", "/api/pages"],
     attributes: ["*"],
 });
 
@@ -46,7 +39,7 @@ acl.extendRole("admin", "editor");
 export const permitted = async (role, action, resource) => {
     let permission = await acl.can(role).execute(action).on(resource);
 
-    logger.debug(`${action} on permission: ${JSON.stringify(permission)} is ${permission.granted ? "granted" : "denied"}`);
+    logger.debug(`${action} on ${resource} by ${role} is ${permission.granted ? "granted" : "** DENIED **"}`);
 
     return permission.granted;
 };
