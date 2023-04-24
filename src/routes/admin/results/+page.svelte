@@ -3,8 +3,8 @@
     import { onMount } from "svelte";
     import DataTable, { Head, Body, Row, Cell } from "@smui/data-table";
     import Select, { Option } from "@smui/select";
-    import Checkbox from '@smui/checkbox';
-    import FormField from '@smui/form-field';
+    import Checkbox from "@smui/checkbox";
+    import FormField from "@smui/form-field";
     import Button from "@smui/button";
 
     import { io } from "$lib/socket-client";
@@ -14,23 +14,24 @@
     export let data;
     let { tournament, results } = data;
 
-    let selectedName = "U11", showCompleted = false, selectedDay;
+    let selectedName = "U11",
+        showCompleted = false,
+        selectedDay;
 
     let competitions = tournament.competitions.reduce(
         (comps, comp) => (comps.find((x) => x.name === comp.name) ? [...comps] : [...comps, comp]),
         []
     );
 
-    let days = [...new Set(results.map(res => res.day))];
+    let days = [...new Set(results.map((res) => res.day))];
 
     results.sort(dateTimeSort);
 
     $: filteredResults = results.filter(
-        (r) => (
+        (r) =>
             r.competition.name == selectedName &&
             (showCompleted || (r.homeGoals == undefined && r.awayGoals == undefined)) &&
             r.day == (selectedDay || r.day)
-        )
     );
     // ----------------------------------------------------------------------
 
@@ -57,7 +58,6 @@
             }
         });
     });
-
 </script>
 
 <svelte:head>
@@ -70,7 +70,7 @@
     </div>
 
     <div slot="section-body">
-        <div>                
+        <div>
             <Select bind:value={selectedDay} label="Day" style="width: 100px">
                 <Option>Any</Option>
                 {#each days as day}
@@ -81,7 +81,7 @@
                 {#each competitions as comp}
                     <Option value={comp.name}>{comp.name}</Option>
                 {/each}
-            </Select> 
+            </Select>
             <FormField align="end">
                 <Checkbox bind:checked={showCompleted} />
                 <span slot="label">Show Completed</span>
@@ -92,8 +92,8 @@
                 <Row>
                     <Cell style="width: 30%">Competition</Cell>
                     <Cell numeric>Home</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <Cell />
+                    <Cell />
                     <Cell>Away</Cell>
                 </Row>
             </Head>
@@ -105,8 +105,7 @@
                             {result.competition.section || ""}
                             {#if result.competition.group}
                                 G{result.competition.group}
-                            {/if} /
-                            Game {result.tag}<br/>
+                            {/if} / Game {result.tag}<br />
                             Pitch {result.pitch} at
                             {time(result.dateTime)}
                         </Cell>
