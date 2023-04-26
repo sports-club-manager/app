@@ -102,42 +102,9 @@ var pages = [
     { title: "Title 1", body: "## Title 1\n\nthis is test page 1", created: new Date() },
     { title: "Title 2", body: "## Title 2\n\nthis is test page 2", created: new Date() },
 ];
-var users = [
-    {
-        _id: ObjectId("6192470fb26ec0951573f9db"),
-        __v: 0,
-        email: "referee@referee.org",
-        providerId: "20398234058034958",
-        providerName: "google",
-        displayName: "A Ref",
-        photo: "http://example.com/somepic.png",
-        roles: ["guest", "referee"],
-    },
-    {
-        _id: ObjectId("6192470fb26ec0951573f9dc"),
-        __v: 0,
-        email: "admin@admin.org",
-        providerId: "20398234058034958",
-        providerName: "google",
-        displayName: "Anne Admin",
-        photo: "http://example.com/somepic.png",
-        roles: ["guest", "admin"],
-    },
-    {
-        _id: ObjectId("6192470fb26ec0951573f9dd"),
-        __v: 0,
-        email: "editor@editor.org",
-        providerId: "20398234058034958",
-        providerName: "google",
-        displayName: "Anne Editor",
-        photo: "http://example.com/somepic.png",
-        roles: ["guest", "editor"],
-    },
-];
-
 var results = [
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 30600000,
         duration: "8m",
@@ -150,7 +117,7 @@ var results = [
         awayGoals: 1,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 31500000,
         duration: "8m",
@@ -163,7 +130,7 @@ var results = [
         awayGoals: 1,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 32400000,
         duration: "8m",
@@ -176,7 +143,7 @@ var results = [
         awayGoals: 1,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 33300000,
         duration: "8m",
@@ -189,7 +156,7 @@ var results = [
         awayGoals: 3,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 34200000,
         duration: "8m",
@@ -202,7 +169,7 @@ var results = [
         awayGoals: 2,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 35100000,
         duration: "8m",
@@ -215,7 +182,7 @@ var results = [
         awayGoals: 0,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 36000000,
         duration: "8m",
@@ -228,7 +195,7 @@ var results = [
         awayGoals: 1,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 36900000,
         duration: "8m",
@@ -241,7 +208,7 @@ var results = [
         awayGoals: 3,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 37800000,
         duration: "8m",
@@ -254,7 +221,7 @@ var results = [
         awayGoals: 2,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 38700000,
         duration: "8m",
@@ -267,7 +234,7 @@ var results = [
         awayGoals: 0,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 30600000,
         duration: "8m",
@@ -280,7 +247,7 @@ var results = [
         awayGoals: 2,
     },
     {
-        __v: 0,
+        __v: 1,
         day: 1,
         dateTime: 31500000,
         duration: "8m",
@@ -1170,13 +1137,11 @@ var results = [
 
 // --------------------------------------------------------------------------
 
-db.users.remove({});
 db.tournaments.remove({});
 db.results.remove({});
 db.news.remove({});
 db.pages.remove({});
 
-db.users.insert(users);
 db.tournaments.insert(tournament);
 db.results.insert(results);
 db.news.insert(news);
