@@ -16,32 +16,6 @@
     export let data;
     $: ({ tournament, name, section, results } = data);
 
-    // ----------------------------------------------------------------------
-
-    onMount(() => {
-        io.on("save-result", (result) => {
-            console.debug("Received result", result);
-            for (let i = 0; i < results.length; i++) {
-                if (results[i]._id == result._id) {
-                    console.debug(`Found result to update: ${i}`);
-                    results[i] = result;
-                    break;
-                }
-            }
-        });
-
-        io.on("remove-result", (resultId) => {
-            console.debug("Result deleted", resultId);
-            for (let i = 0; i < results.length; i++) {
-                if (results[i]._id == resultId) {
-                    console.debug(`Found result to remove: ${i}`);
-                    results.splice(i, 1);
-                    break;
-                }
-            }
-        });
-    });
-
     let active = "1";
     let otherComps = [];
     let competition = [];
@@ -77,6 +51,32 @@
                 ? time(groupResults[groupResults.length - 1].dateTime + 900000)
                 : "";
     }
+
+    // ----------------------------------------------------------------------
+
+    onMount(() => {
+        io.on("save-result", (result) => {
+            console.debug("Received result", result);
+            for (let i = 0; i < results.length; i++) {
+                if (results[i]._id == result._id) {
+                    console.debug(`Found result to update: ${i}`);
+                    results[i] = result;
+                    break;
+                }
+            }
+        });
+
+        io.on("remove-result", (resultId) => {
+            console.debug("Result deleted", resultId);
+            for (let i = 0; i < results.length; i++) {
+                if (results[i]._id == resultId) {
+                    console.debug(`Found result to remove: ${i}`);
+                    results.splice(i, 1);
+                    break;
+                }
+            }
+        });
+    });
 </script>
 
 <svelte:head>
