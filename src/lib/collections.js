@@ -14,7 +14,9 @@ export const dateTimeSort = (a, b) => {
 // TODO: externalise TZ
 export const time = (dateTime) => moment(dateTime).tz("Europe/London").format("HH:mm");
 
-export const saveRemoveResults = () => {
+/* TODO - can this be made to work?
+export const saveRemoveResults = (results) => {
+    console.debug("Mounted saveRemoveResults");
     io.on("save-result", (result) => {
         console.debug("Received result", result);
         for (let i = 0; i < results.length; i++) {
@@ -37,3 +39,4 @@ export const saveRemoveResults = () => {
         }
     });
 };
+*/
