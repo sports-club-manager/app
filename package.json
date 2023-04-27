@@ -75,8 +75,6 @@
         "role-acl": "^4.5.4",
         "sass": "^1.62.0",
         "smui-theme": "^7.0.0-beta.3",
-        "socket.io": "^4.6.1",
-        "socket.io-client": "^4.6.1",
         "svelte": "^3.54.0",
         "svelte-check": "^3.0.1",
         "svelte-material-ui": "^7.0.0-beta.3",
@@ -86,6 +84,8 @@
     "dependencies": {
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
+        "socket.io": "^4.6.1",
+        "socket.io-client": "^4.6.1",
         "winston": "^3.8.2"
     }
 }
