@@ -8,7 +8,7 @@
 
     import "$lib/global.scss";
     import { io } from "$lib/socket-client";
-    import { dateTimeSort, saveRemoveResults, time } from "$lib/collections.js";
+    import { dateTimeSort, time } from "$lib/collections.js";
     import ResultList from "$lib/components/ResultList.svelte";
     import LeagueTable from "$lib/components/LeagueTable.svelte";
     import Section from "$lib/components/Section.svelte";
