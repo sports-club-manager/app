@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 
-import { logger } from "./logger";
+import { logger } from "./logger.js";
 
 /**
  * @param {Partial<import("socket.io").ServerOptions> | undefined} server

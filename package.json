@@ -23,7 +23,7 @@
     },
     "scripts": {
         "dev": "vite dev --host",
-        "build": "vite build",
+        "build": "vite build && mv build/index.js build/index.orig && cp src/lib/server/*-server.js build && cp src/lib/server/logger.js build",
         "preview": "vite preview --host",
         "prepare": "svelte-kit sync && mkdir -p static/styles && npm run smui-theme-light && npm run smui-theme-dark",
         "smui-theme-light": "smui-theme compile static/styles/light.css -i src/theme/light",
@@ -86,6 +86,6 @@
         "winston": "^3.8.2"
     },
     "dependencies": {
-        "socket.io": "^4.6.1"
+        "dotenv": "^16.0.3"
     }
 }
