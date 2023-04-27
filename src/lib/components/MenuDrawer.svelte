@@ -57,7 +57,7 @@
                 <Text>Home</Text>
             </Item>
 
-            {#if (user?.role != "guest")}
+            {#if (user && user?.role != "guest")}
             <Separator />
             <Subheader>Tournament Admin</Subheader>
 
