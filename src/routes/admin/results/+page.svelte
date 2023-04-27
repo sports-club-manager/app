@@ -16,7 +16,7 @@
     export let data;
 
     let { tournament, results } = data;
-    let selectedName = "U11";
+    let selectedName;
     let showCompleted = false;
     let selectedDay;
 
@@ -151,15 +151,14 @@
                 {#each filteredResults as result}
                     <Row>
                         <Cell>
-                            {result.competition.name}
-                            {result.competition.section || ""}
-                            {#if result.competition.group}
-                                G{result.competition.group}
-                            {/if} / Game {result.tag}<br />
-                            Pitch {result.pitch} at
-                            {time(result.dateTime)}
+                            <small>
+                                {result.competition.section || ""}<br>
+                                {#if result.competition.group}
+                                    Grp {result.competition.group} / Game
+                                {/if} {result.tag}
+                            </small>
                         </Cell>
-                        <Cell numeric>
+                        <Cell numeric style="width: 32%;">
                             {result.homeTeam}
                             <IconButton
                                 class="material-icons"
@@ -180,13 +179,13 @@
                                 </Icon>
                             </IconButton>
                         </Cell>
-                        <Cell numeric class="points" style="width: 5%;">
-                            {result.homeGoals == undefined ? "-" : result.homeGoals}
+                        <Cell numeric class="points" style="width: 6%;">
+                            {#if result.homeGoals == undefined}<small>P{result.pitch}</small> {:else}{result.homeGoals}{/if}
                         </Cell>
-                        <Cell class="points" style="width: 5%;">
-                            {result.awayGoals == undefined ? "-" : result.awayGoals}
+                        <Cell class="points" style="width: 6%;">
+                            {#if result.awayGoals == undefined}<small>{time(result.dateTime)}</small> {:else}{result.awayGoals}{/if}
                         </Cell>
-                        <Cell>
+                        <Cell style="width: 32%;">
                             <IconButton
                                 class="material-icons"
                                 on:click={() => (result = score(result, true, false, false))}
