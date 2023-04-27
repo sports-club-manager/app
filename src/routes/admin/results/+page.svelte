@@ -1,38 +1,96 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
-    import DataTable, { Head, Body, Row, Cell } from "@smui/data-table";
+    import DataTable, { Body, Row, Cell } from "@smui/data-table";
     import Select, { Option } from "@smui/select";
     import Checkbox from "@smui/checkbox";
     import FormField from "@smui/form-field";
-    import Button from "@smui/button";
+    import IconButton, { Icon } from "@smui/icon-button";
+    import { Svg } from "@smui/common";
+    import { mdiPlusBox, mdiMinusBox, mdiCheck, mdiCancel } from "@mdi/js";
 
     import { io } from "$lib/socket-client";
     import Section from "$lib/components/Section.svelte";
-    import { dateTimeSort, saveRemoveResults, time } from "$lib/collections.js";
+    import { dateTimeSort, time } from "$lib/collections.js";
 
     export let data;
+
     let { tournament, results } = data;
+    let selectedName = "U11";
+    let showCompleted = false;
+    let selectedDay;
 
-    let selectedName = "U11",
-        showCompleted = false,
-        selectedDay;
-
+    let days = [...new Set(results.map((res) => res.day))];
     let competitions = tournament.competitions.reduce(
         (comps, comp) => (comps.find((x) => x.name === comp.name) ? [...comps] : [...comps, comp]),
         []
     );
 
-    let days = [...new Set(results.map((res) => res.day))];
+    const score = (result, inc, home, penalty) => {
+        let goal = inc ? 1 : -1;
+        if (home) {
+            if (penalty) {
+                if (result.homePens == undefined) {
+                    result.homePens = 1;
+                    result.awayPens = 0;
+                } else {
+                    result.homePens = result.homePens + goal;
+                }
+            } else {
+                if (result.homeGoals == undefined) {
+                    result.homeGoals = goal;
+                    result.awayGoals = 0;
+                } else {
+                    result.homeGoals = result.homeGoals + goal;
+                }
+            }
+        } else {
+            if (penalty) {
+                if (result.awayPens == undefined) {
+                    result.awayPens = 1;
+                    result.homePens = 0;
+                } else {
+                    result.awayPens = result.awayPens + goal;
+                }
+            } else {
+                if (result.awayGoals == undefined) {
+                    result.awayGoals = goal;
+                    result.homeGoals = 0;
+                } else {
+                    result.awayGoals = result.awayGoals + goal;
+                }
+            }
+        }
+
+        if (result.homeGoals < 0) result.homeGoals = 0;
+        if (result.homePens < 0) result.homePens = 0;
+        if (result.awayGoals < 0) result.awayGoals = 0;
+        if (result.awayPens < 0) result.awayPens = 0;
+
+        return result;
+    };
+
+    const updateResult = (result) => {
+        fetch(`/api/results/${result._id}`, { method: "PUT", body: JSON.stringify(result) });
+    };
+
+    const resetResult = (result) => {
+        result.homeGoals = undefined;
+        result.awayGoals = undefined;
+        result.homePens = undefined;
+        result.awayPens = undefined;
+        fetch(`/api/results/${result._id}`, { method: "PUT", body: JSON.stringify(result) });
+    };
 
     results.sort(dateTimeSort);
 
     $: filteredResults = results.filter(
         (r) =>
             r.competition.name == selectedName &&
-            (showCompleted || (r.homeGoals == undefined && r.awayGoals == undefined)) &&
+            (showCompleted || r.homeGoals == undefined || r._v == 0) &&
             r.day == (selectedDay || r.day)
     );
+
     // ----------------------------------------------------------------------
 
     onMount(() => {
@@ -71,6 +129,7 @@
 
     <div slot="section-body">
         <div>
+            <Icon style="padding: 1em;" class="material-icons">filter_alt</Icon>
             <Select bind:value={selectedDay} label="Day" style="width: 100px">
                 <Option>Any</Option>
                 {#each days as day}
@@ -87,16 +146,7 @@
                 <span slot="label">Show Completed</span>
             </FormField>
         </div>
-        <DataTable stickyHeader table$aria-label="Result list" style="width: 100%;">
-            <Head>
-                <Row>
-                    <Cell style="width: 30%">Competition</Cell>
-                    <Cell numeric>Home</Cell>
-                    <Cell />
-                    <Cell />
-                    <Cell>Away</Cell>
-                </Row>
-            </Head>
+        <DataTable table$aria-label="Result list" style="width: 100%;">
             <Body>
                 {#each filteredResults as result}
                     <Row>
@@ -109,10 +159,68 @@
                             Pitch {result.pitch} at
                             {time(result.dateTime)}
                         </Cell>
-                        <Cell numeric>{result.homeTeam}</Cell>
-                        <Cell numeric>{result.homeGoals || 0}</Cell>
-                        <Cell>{result.awayGoals || 0}</Cell>
-                        <Cell>{result.awayTeam}</Cell>
+                        <Cell numeric>
+                            {result.homeTeam}
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, false, true, false))}
+                                size="button"
+                            >
+                                <Icon component={Svg} viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiMinusBox} />
+                                </Icon>
+                            </IconButton>
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, true, true, false))}
+                                size="button"
+                            >
+                                <Icon component={Svg} viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiPlusBox} />
+                                </Icon>
+                            </IconButton>
+                        </Cell>
+                        <Cell numeric class="points" style="width: 5%;">
+                            {result.homeGoals == undefined ? "-" : result.homeGoals}
+                        </Cell>
+                        <Cell class="points" style="width: 5%;">
+                            {result.awayGoals == undefined ? "-" : result.awayGoals}
+                        </Cell>
+                        <Cell>
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, true, false, false))}
+                                size="button"
+                            >
+                                <Icon component={Svg} viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiPlusBox} />
+                                </Icon>
+                            </IconButton>
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, false, false, false))}
+                                size="button"
+                            >
+                                <Icon component={Svg} viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiMinusBox} />
+                                </Icon>
+                            </IconButton>
+                            {result.awayTeam}
+                        </Cell>
+                        <Cell>
+                            {#if result.homeGoals !== undefined}
+                                <IconButton class="material-icons" on:click={() => updateResult(result)} size="button">
+                                    <Icon component={Svg} viewBox="0 0 24 24">
+                                        <path fill="currentColor" d={mdiCheck} />
+                                    </Icon>
+                                </IconButton>
+                                <IconButton class="material-icons" on:click={() => resetResult(result)} size="button">
+                                    <Icon component={Svg} viewBox="0 0 24 24">
+                                        <path fill="currentColor" d={mdiCancel} />
+                                    </Icon>
+                                </IconButton>
+                            {/if}
+                        </Cell>
                     </Row>
                 {/each}
             </Body>
