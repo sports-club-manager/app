@@ -19,6 +19,13 @@ acl.grant({
 });
 
 acl.grant({
+    role: "scorer",
+    action: ["GET"],
+    resource: "/admin/results",
+    attributes: ["*"],
+});
+
+acl.grant({
     role: "editor",
     action: ["*", "!DELETE"],
     resource: ["/api/results/*", "/api/news", "/api/pages"],
