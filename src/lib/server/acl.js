@@ -7,7 +7,7 @@ const acl = new AccessControl();
 acl.grant({
     role: "guest",
     action: ["GET"],
-    resource: ["/", "/socket.io/*", "/favicon.ico", "/api/*", "/news/*", "/pages/*", "/competitions/*"],
+    resource: ["/", "/socket.io/*", "/favicon.ico", "/api/*", "/news", "/pages/*", "/competitions/*"],
     attributes: ["*"],
 });
 
