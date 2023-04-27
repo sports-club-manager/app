@@ -40,7 +40,7 @@
             </List>
         {/if}
         <List>
-            {#if !(user && user.name)}
+            {#if !(user?.name)}
                 <Item href="#" on:click={() => goto(`/auth/signin`)}>
                     <Graphic class="material-icons" aria-hidden="true">login</Graphic>
                     <Text>Login</Text>
@@ -51,19 +51,31 @@
                     <Text>Logout</Text>
                 </Item>
             {/if}
+
             <Item href="#" on:click={() => setActive("Home", "/")} activated={active === "Home"}>
                 <Graphic class="material-icons" aria-hidden="true">home</Graphic>
                 <Text>Home</Text>
             </Item>
-            {#if tournament.siteMap}
-                <Item href={tournament.siteMap}>
-                    <Graphic class="material-icons" aria-hidden="true">fmd_good</Graphic>
-                    <Text>Site Map</Text>
-                </Item>
+
+            {#if (user?.role != "guest")}
+            <Separator />
+            <Subheader>Tournament Admin</Subheader>
+
+            <Item href="#" on:click={() => setActive("AdminResults", "/admin/results")} activated={active === "AdminResults"}>
+                <Graphic class="material-icons" aria-hidden="true">edit_square</Graphic>
+                <Text>Enter Results</Text>
+            </Item>
             {/if}
 
             <Separator />
             <Subheader>Tournament Information</Subheader>
+            
+            {#if tournament.siteMap}
+                <Item href={tournament.siteMap}>
+                    <Graphic class="material-icons" aria-hidden="true">fmd_good</Graphic>
+                    <Text>Site Location Map</Text>
+                </Item>
+            {/if}
             <Item href="#" on:click={() => setActive("News", "/news")} activated={active === "News"}>
                 <Graphic class="material-icons" aria-hidden="true">feed</Graphic>
                 <Text>Announcements</Text>
