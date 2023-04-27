@@ -13,6 +13,7 @@ import { dbClientPromise } from "$lib/server/db";
 import { logger } from "$lib/server/logger";
 
 let authentication = SvelteKitAuth({
+    trustHost: true,
     adapter: MongoDBAdapter(dbClientPromise),
     providers: [
         GoogleProvider({
