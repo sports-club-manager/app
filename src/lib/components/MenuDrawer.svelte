@@ -40,7 +40,7 @@
             </List>
         {/if}
         <List>
-            {#if !(user?.name)}
+            {#if !user?.name}
                 <Item href="#" on:click={() => goto(`/auth/signin`)}>
                     <Graphic class="material-icons" aria-hidden="true">login</Graphic>
                     <Text>Login</Text>
@@ -57,19 +57,19 @@
                 <Text>Home</Text>
             </Item>
 
-            {#if (user && user?.role != "guest")}
-            <Separator />
-            <Subheader>Tournament Admin</Subheader>
+            {#if user && user?.role != "guest"}
+                <Separator />
+                <Subheader>Tournament Admin</Subheader>
 
-            <Item href="#" on:click={() => setActive("AdminResults", "/admin/results")} activated={active === "AdminResults"}>
-                <Graphic class="material-icons" aria-hidden="true">edit_square</Graphic>
-                <Text>Enter Results</Text>
-            </Item>
+                <Item href="#" on:click={() => setActive("AdminResults", "/admin/results")} activated={active === "AdminResults"}>
+                    <Graphic class="material-icons" aria-hidden="true">edit_square</Graphic>
+                    <Text>Enter Results</Text>
+                </Item>
             {/if}
 
             <Separator />
             <Subheader>Tournament Information</Subheader>
-            
+
             {#if tournament.siteMap}
                 <Item href={tournament.siteMap}>
                     <Graphic class="material-icons" aria-hidden="true">fmd_good</Graphic>

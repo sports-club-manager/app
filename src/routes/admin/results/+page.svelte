@@ -152,10 +152,11 @@
                     <Row>
                         <Cell>
                             <small>
-                                {result.competition.section || ""}<br>
+                                {result.competition.section || ""}<br />
                                 {#if result.competition.group}
                                     Grp {result.competition.group} / Game
-                                {/if} {result.tag}
+                                {/if}
+                                {result.tag}
                             </small>
                         </Cell>
                         <Cell numeric style="width: 32%;">
