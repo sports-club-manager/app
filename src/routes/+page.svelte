@@ -43,8 +43,8 @@
                     <Panel bind:open={isOpen[i]}>
                         <Header>
                             <AgeFab name={ag.name} />
-                            <h6>All {ag.name} competitions</h6>
-                            <small>Saturday morning</small>
+                            <span class="header">All {ag.name} competitions</span>
+                            <!-- <br><small>Saturday morning</small> -->
                             <IconButton slot="icon" toggle pressed={isOpen[i]} aria-label={`Expand ${ag.name} Section`}>
                                 <Icon class="material-icons" on>expand_less</Icon>
                                 <Icon class="material-icons">expand_more</Icon>
@@ -77,6 +77,10 @@
         background-position: top right;
         background-repeat: no-repeat;
         padding: 0;
+    }
+
+    span.header {
+        font-size: 1.2em;
     }
 
     @media (max-width: 600px) {
