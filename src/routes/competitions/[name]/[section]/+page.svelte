@@ -59,7 +59,6 @@
             console.debug("Received result", result);
             for (let i = 0; i < results.length; i++) {
                 if (results[i]._id == result._id) {
-                    console.debug(`Found result to update: ${i}`);
                     results[i] = result;
                     break;
                 }
@@ -70,7 +69,6 @@
             console.debug("Result deleted", resultId);
             for (let i = 0; i < results.length; i++) {
                 if (results[i]._id == resultId) {
-                    console.debug(`Found result to remove: ${i}`);
                     results.splice(i, 1);
                     break;
                 }

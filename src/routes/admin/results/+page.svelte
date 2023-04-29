@@ -19,7 +19,7 @@
     let selectedName;
     let showCompleted = false;
     let selectedDay;
-    
+
     let days = [...new Set(results.map((res) => res.day))];
     let competitions = tournament.competitions.reduce(
         (comps, comp) => (comps.find((x) => x.name === comp.name) ? [...comps] : [...comps, comp]),
@@ -162,37 +162,25 @@
                         </Cell>
                         <Cell numeric style="width: 32%;">
                             {result.homeTeam}
-                            <IconButton
-                                class="material-icons"
-                                on:click={() => (result = score(result, false, true))}
-                                size="button"
-                            >
+                            <IconButton class="material-icons" on:click={() => (result = score(result, false, true))} size="button">
                                 <Icon component={Svg} viewBox="0 0 24 24">
                                     <path fill="currentColor" d={mdiMinusBox} />
                                 </Icon>
                             </IconButton>
-                            <IconButton
-                                class="material-icons"
-                                on:click={() => (result = score(result, true, true))}
-                                size="button"
-                            >
+                            <IconButton class="material-icons" on:click={() => (result = score(result, true, true))} size="button">
                                 <Icon component={Svg} viewBox="0 0 24 24">
                                     <path fill="currentColor" d={mdiPlusBox} />
                                 </Icon>
                             </IconButton>
                         </Cell>
-                        <Cell numeric class="points" style="width: 6%;">                            
+                        <Cell numeric class="points" style="width: 6%;">
                             {#if homeScore(result) == ""}<small>P{result.pitch}</small> {:else}{homeScore(result)}{/if}
                         </Cell>
                         <Cell class="points" style="width: 6%;">
                             {#if awayScore(result) == ""}<small>{time(result.dateTime)}</small> {:else}{awayScore(result)}{/if}
                         </Cell>
                         <Cell style="width: 32%;">
-                            <IconButton
-                                class="material-icons"
-                                on:click={() => (result = score(result, true, false))}
-                                size="button"
-                            >
+                            <IconButton class="material-icons" on:click={() => (result = score(result, true, false))} size="button">
                                 <Icon component={Svg} viewBox="0 0 24 24">
                                     <path fill="currentColor" d={mdiPlusBox} />
                                 </Icon>
@@ -210,7 +198,12 @@
                         </Cell>
                         <Cell>
                             {#if result.homeGoals !== undefined}
-                                <IconButton class="material-icons" on:click={() => result.pens = !result.pens} size="button" disabled={(result.homeGoals != result.awayGoals)}>
+                                <IconButton
+                                    class="material-icons"
+                                    on:click={() => (result.pens = !result.pens)}
+                                    size="button"
+                                    disabled={result.homeGoals != result.awayGoals}
+                                >
                                     <Icon component={Svg} viewBox="0 0 24 24">
                                         <path fill="currentColor" d={result.pens ? mdiAlarm : mdiAlarmOff} />
                                     </Icon>
