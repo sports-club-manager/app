@@ -7,11 +7,11 @@
     import FormField from "@smui/form-field";
     import IconButton, { Icon } from "@smui/icon-button";
     import { Svg } from "@smui/common";
-    import { mdiPlusBox, mdiMinusBox, mdiCheck, mdiCancel } from "@mdi/js";
+    import { mdiPlusBox, mdiMinusBox, mdiCheck, mdiCancel, mdiAlarm, mdiAlarmOff } from "@mdi/js";
 
     import { io } from "$lib/socket-client";
     import Section from "$lib/components/Section.svelte";
-    import { dateTimeSort, time } from "$lib/collections.js";
+    import { awayScore, homeScore, dateTimeSort, time } from "$lib/collections.js";
 
     export let data;
 
@@ -19,17 +19,20 @@
     let selectedName;
     let showCompleted = false;
     let selectedDay;
-
+    
     let days = [...new Set(results.map((res) => res.day))];
     let competitions = tournament.competitions.reduce(
         (comps, comp) => (comps.find((x) => x.name === comp.name) ? [...comps] : [...comps, comp]),
         []
     );
 
-    const score = (result, inc, home, penalty) => {
+    const score = (result, inc, home) => {
+        // mark the result as being edited to prevent socket updates causing it to be hidden
+        result.editing = true;
+
         let goal = inc ? 1 : -1;
         if (home) {
-            if (penalty) {
+            if (result.pens) {
                 if (result.homePens == undefined) {
                     result.homePens = 1;
                     result.awayPens = 0;
@@ -45,7 +48,7 @@
                 }
             }
         } else {
-            if (penalty) {
+            if (result.pens) {
                 if (result.awayPens == undefined) {
                     result.awayPens = 1;
                     result.homePens = 0;
@@ -87,7 +90,7 @@
     $: filteredResults = results.filter(
         (r) =>
             r.competition.name == selectedName &&
-            (showCompleted || r.homeGoals == undefined || r._v == 0) &&
+            (showCompleted || r.homeGoals == undefined || r._v == 0 || r.editing) &&
             r.day == (selectedDay || r.day)
     );
 
@@ -98,7 +101,6 @@
             console.debug("Received result", result);
             for (let i = 0; i < results.length; i++) {
                 if (results[i]._id == result._id) {
-                    console.debug(`Found result to update: ${i}`);
                     results[i] = result;
                     break;
                 }
@@ -109,7 +111,6 @@
             console.debug("Result deleted", resultId);
             for (let i = 0; i < results.length; i++) {
                 if (results[i]._id == resultId) {
-                    console.debug(`Found result to remove: ${i}`);
                     results.splice(i, 1);
                     break;
                 }
@@ -150,11 +151,11 @@
             <Body>
                 {#each filteredResults as result}
                     <Row>
-                        <Cell>
+                        <Cell style="width: 10%;">
                             <small>
                                 {result.competition.section || ""}<br />
                                 {#if result.competition.group}
-                                    Grp {result.competition.group} / Game
+                                    Grp {result.competition.group} / #
                                 {/if}
                                 {result.tag}
                             </small>
@@ -163,7 +164,7 @@
                             {result.homeTeam}
                             <IconButton
                                 class="material-icons"
-                                on:click={() => (result = score(result, false, true, false))}
+                                on:click={() => (result = score(result, false, true))}
                                 size="button"
                             >
                                 <Icon component={Svg} viewBox="0 0 24 24">
@@ -172,7 +173,7 @@
                             </IconButton>
                             <IconButton
                                 class="material-icons"
-                                on:click={() => (result = score(result, true, true, false))}
+                                on:click={() => (result = score(result, true, true))}
                                 size="button"
                             >
                                 <Icon component={Svg} viewBox="0 0 24 24">
@@ -180,16 +181,16 @@
                                 </Icon>
                             </IconButton>
                         </Cell>
-                        <Cell numeric class="points" style="width: 6%;">
-                            {#if result.homeGoals == undefined}<small>P{result.pitch}</small> {:else}{result.homeGoals}{/if}
+                        <Cell numeric class="points" style="width: 6%;">                            
+                            {#if homeScore(result) == ""}<small>P{result.pitch}</small> {:else}{homeScore(result)}{/if}
                         </Cell>
                         <Cell class="points" style="width: 6%;">
-                            {#if result.awayGoals == undefined}<small>{time(result.dateTime)}</small> {:else}{result.awayGoals}{/if}
+                            {#if awayScore(result) == ""}<small>{time(result.dateTime)}</small> {:else}{awayScore(result)}{/if}
                         </Cell>
                         <Cell style="width: 32%;">
                             <IconButton
                                 class="material-icons"
-                                on:click={() => (result = score(result, true, false, false))}
+                                on:click={() => (result = score(result, true, false))}
                                 size="button"
                             >
                                 <Icon component={Svg} viewBox="0 0 24 24">
@@ -198,7 +199,7 @@
                             </IconButton>
                             <IconButton
                                 class="material-icons"
-                                on:click={() => (result = score(result, false, false, false))}
+                                on:click={() => (result = score(result, false, false))}
                                 size="button"
                             >
                                 <Icon component={Svg} viewBox="0 0 24 24">
@@ -209,6 +210,11 @@
                         </Cell>
                         <Cell>
                             {#if result.homeGoals !== undefined}
+                                <IconButton class="material-icons" on:click={() => result.pens = !result.pens} size="button" disabled={(result.homeGoals != result.awayGoals)}>
+                                    <Icon component={Svg} viewBox="0 0 24 24">
+                                        <path fill="currentColor" d={result.pens ? mdiAlarm : mdiAlarmOff} />
+                                    </Icon>
+                                </IconButton>
                                 <IconButton class="material-icons" on:click={() => updateResult(result)} size="button">
                                     <Icon component={Svg} viewBox="0 0 24 24">
                                         <path fill="currentColor" d={mdiCheck} />
