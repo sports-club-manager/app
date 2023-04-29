@@ -1,25 +1,9 @@
 <script>
     // @ts-nocheck
     import { highlight } from "$lib/stores";
-    import { time } from "$lib/collections";
+    import { awayScore, homeScore, time } from "$lib/collections";
 
     export let results = [];
-
-    let homeScore = (res) => {
-        if ("homeGoals" in res && res.homeGoals >= 0) {
-            return res.homeGoals + (res.awayPens || res.homePens ? "(" + res.homePens + ")" : "");
-        } else {
-            return "";
-        }
-    };
-
-    let awayScore = (res) => {
-        if ("awayGoals" in res && res.awayGoals >= 0) {
-            return (res.awayPens || res.homePens ? "(" + res.awayPens + ")" : "") + res.awayGoals;
-        } else {
-            return "";
-        }
-    };
 </script>
 
 {#if results.length > 0}

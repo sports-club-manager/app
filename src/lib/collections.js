@@ -1,6 +1,6 @@
 // @ts-nocheck
 import moment from "moment-timezone";
-import { io } from "$lib/socket-client";
+//import { io } from "$lib/socket-client";
 
 /*
  * sort a collection of results by dateTime (most recent first)
@@ -14,6 +14,22 @@ export const dateTimeSort = (a, b) => {
 // TODO: externalise TZ
 export const time = (dateTime) => moment(dateTime).tz("Europe/London").format("HH:mm");
 
+export const homeScore = (res) => {
+    if ("homeGoals" in res && res.homeGoals >= 0) {
+        return res.homeGoals + (res.awayPens || res.homePens ? "(" + res.homePens + ")" : "");
+    } else {
+        return "";
+    }
+};
+
+export const awayScore = (res) => {
+    if ("awayGoals" in res && res.awayGoals >= 0) {
+        return (res.awayPens || res.homePens ? "(" + res.awayPens + ")" : "") + res.awayGoals;
+    } else {
+        return "";
+    }
+};
+
 /* TODO - can this be made to work?
 export const saveRemoveResults = (results) => {
     console.debug("Mounted saveRemoveResults");
@@ -21,7 +37,6 @@ export const saveRemoveResults = (results) => {
         console.debug("Received result", result);
         for (let i = 0; i < results.length; i++) {
             if (results[i]._id == result._id) {
-                console.debug(`Found result to update: ${i}`);
                 results[i] = result;
                 break;
             }
@@ -32,7 +47,6 @@ export const saveRemoveResults = (results) => {
         console.debug("Result deleted", resultId);
         for (let i = 0; i < results.length; i++) {
             if (results[i]._id == resultId) {
-                console.debug(`Found result to remove: ${i}`);
                 results.splice(i, 1);
                 break;
             }
