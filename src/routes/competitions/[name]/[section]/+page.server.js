@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { findResults, findTournament } from "$lib/server/db";
+import { findResultsByAgeGroupAndSection, findTournament } from "$lib/server/db";
 
 const tournament = await findTournament();
 
@@ -9,7 +9,7 @@ export const load = async ({ params }) => {
         return { status: 404 };
     }
 
-    let results = await findResults(params.name, params.section);
+    let results = await findResultsByAgeGroupAndSection(params.name, params.section);
 
     return {
         results: JSON.parse(JSON.stringify(results)),

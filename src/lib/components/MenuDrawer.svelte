@@ -61,7 +61,11 @@
                 <Separator />
                 <Subheader>Tournament Admin</Subheader>
 
-                <Item href="#" on:click={() => setActive("AdminResults", "/admin/results")} activated={active === "AdminResults"}>
+                <Item
+                    href="#"
+                    on:click={() => setActive("AdminResults", "/admin/results/all")}
+                    activated={active === "AdminResults"}
+                >
                     <Graphic class="material-icons" aria-hidden="true">edit_square</Graphic>
                     <Text>Enter Results</Text>
                 </Item>
