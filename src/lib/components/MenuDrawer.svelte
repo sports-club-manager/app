@@ -16,7 +16,8 @@
     function setActive(value, location) {
         active = value;
         open = false;
-        if (location) goto(location);
+        if (location?.startsWith("/pages")) window.location = location;
+        else if (location) goto(location);
     }
 </script>
 
@@ -85,7 +86,7 @@
                 <Text>Announcements</Text>
             </Item>
             {#each pages as page}
-                <Item href="#" on:click={() => setActive(page.title, `/pages/${page.title}`)} activated={active === page.title}>
+                <Item href="#" on:click={() => setActive(page.title, `/pages/${page.title}`)}  activated={active === page.title}>
                     <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
                     <Text>{page.title}</Text>
                 </Item>
