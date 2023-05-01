@@ -3,12 +3,16 @@ import moment from "moment-timezone";
 //import { io } from "$lib/socket-client";
 
 /*
- * sort a collection of results by dateTime (most recent first)
+ * sort a collection of results by dateTime (most recent first), then tag, then pitch
  */
 export const dateTimeSort = (a, b) => {
-    if (a.dateTime < b.dateTime) return -1;
-    if (a.dateTime > b.dateTime) return 1;
-    return a.tag < b.tag ? -1 : 1;
+    if (a?.dateTime < b?.dateTime) return -1;
+    if (a?.dateTime > b?.dateTime) return 1;
+    if (a?.tag < b?.tag) return -1;
+    if (a?.tag > b?.tag) return 1;
+    if (a?.pitch < b?.pitch) return -1;
+    if (a?.pitch > b?.pitch) return 1;
+    return 0;
 };
 
 // TODO: externalise TZ
