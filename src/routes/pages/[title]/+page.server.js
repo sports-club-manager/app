@@ -1,16 +1,19 @@
 // @ts-nocheck
+import { error } from '@sveltejs/kit';
+
 import { findPage } from "$lib/server/db";
 
 export const load = async ({ params }) => {
     let infoPage = await findPage(params.title);
 
-    if (infoPage) {
-        return {
-            infoPage: JSON.parse(JSON.stringify(infoPage)),
-        };
+    if (!infoPage) {
+        throw error(404, {
+            message: 'Not found'
+        });
     }
-
+    
     return {
-        status: 404,
+        infoPage: JSON.parse(JSON.stringify(infoPage)),
     };
+
 };

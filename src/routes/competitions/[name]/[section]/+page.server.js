@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { error } from '@sveltejs/kit';
+
 import { findResultsByAgeGroupAndSection, findTournament } from "$lib/server/db";
 
 const tournament = await findTournament();
@@ -6,7 +8,9 @@ const tournament = await findTournament();
 /** @type {import('./$types').RequestHandler} */
 export const load = async ({ params }) => {
     if (!tournament.competitions.find((c) => c.name === params.name && c.section === params.section)) {
-        return { status: 404 };
+        throw error(404, {
+            message: 'Not found'
+        });
     }
 
     let results = await findResultsByAgeGroupAndSection(params.name, params.section);
