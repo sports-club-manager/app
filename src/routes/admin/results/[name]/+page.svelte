@@ -252,7 +252,7 @@
                                         class="material-icons"
                                         on:click={() => (result.pens = !result.pens)}
                                         size="button"
-                                        disabled={result.homeGoals != result.awayGoals}
+                                        disabled={result.homeGoals != result.awayGoals || result.competition.group != undefined}
                                     >
                                         <Icon component={Svg} viewBox="0 0 24 24">
                                             <path fill="currentColor" d={result.pens ? mdiAlarm : mdiAlarmOff} />
