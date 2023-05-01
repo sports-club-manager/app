@@ -21,7 +21,7 @@ acl.grant({
 acl.grant({
     role: "scorer",
     action: ["GET"],
-    resource: "/admin/results",
+    resource: "/admin/results/*",
     attributes: ["*"],
 });
 
