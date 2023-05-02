@@ -19,7 +19,7 @@
     "description": "Front end of an application used to distribute tournament results and updates live on site to attendees. Requires the back end API to be accessible in a separate deployment and a Mongo (or compatible) database for storage.",
     "license": "MIT",
     "engines": {
-        "node": ">=18.15.0"
+        "node": ">=18.16.0 && <19.0.0"
     },
     "scripts": {
         "dev": "vite dev --host",
@@ -57,6 +57,7 @@
         "@smui/list": "^7.0.0-beta.3",
         "@smui/paper": "^7.0.0-beta.8",
         "@smui/select": "^7.0.0-beta.3",
+        "@smui/snackbar": "^7.0.0-beta.8",
         "@smui/tab": "^7.0.0-beta.3",
         "@smui/tab-bar": "^7.0.0-beta.3",
         "@smui/textfield": "^7.0.0-beta.3",

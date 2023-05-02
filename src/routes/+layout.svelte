@@ -1,18 +1,34 @@
 <script>
-    import { page } from "$app/stores";
+    // @ts-nocheck
 
-    import MenuDrawer from "$lib/components/MenuDrawer.svelte";
-    import PageTransition from "$lib/components/PageTransition.svelte";
+    import { onMount } from "svelte";
 
     import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
     import IconButton from "@smui/icon-button";
+    import Kitchen from "@smui/snackbar/kitchen";
+
+    import { page } from "$app/stores";
+    import MenuDrawer from "$lib/components/MenuDrawer.svelte";
+    import PageTransition from "$lib/components/PageTransition.svelte";
+    import { io } from "$lib/socket-client";
 
     let drawerOpen = false;
-
     let user = $page.data.session?.user;
+    let kitchen;
 
     export let data;
     $: ({ routeKey, tournament, pages } = data);
+
+    // ----------------------------------------------------------------------
+
+    onMount(() => {
+        io.on("save-news", (news) => {
+            kitchen.push({
+                label: `${news.title}:- ${news.body}`,
+                dismissButton: true
+            });
+        });
+    });
 </script>
 
 <svelte:head>
@@ -45,9 +61,11 @@
             <slot />
         </section>
     </PageTransition>
+    
+    <Kitchen bind:this={kitchen} dismiss$class="material-icons" />
 
     <section id="footer">
-        <p>&copy; Darren Davison &amp; <a href={tournament.siteUrl}>{tournament.club}</a> 2022</p>
+        <p>&copy; Darren Davison &amp; <a href={tournament.siteUrl}>{tournament.club}</a> 2023</p>
     </section>
 </div>
 
