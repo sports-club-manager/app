@@ -19,7 +19,7 @@
     "description": "Front end of an application used to distribute tournament results and updates live on site to attendees. Requires the back end API to be accessible in a separate deployment and a Mongo (or compatible) database for storage.",
     "license": "MIT",
     "engines": {
-        "node": ">=18.16.0 && <19.0.0"
+        "node": ">=18.16.0 <19.0.0"
     },
     "scripts": {
         "dev": "vite dev --host",
