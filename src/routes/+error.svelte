@@ -20,7 +20,5 @@
         {/if}
     </div>
 
-    <div slot="section-body">
-        
-    </div>
+    <div slot="section-body" />
 </Section>

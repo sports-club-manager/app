@@ -35,6 +35,10 @@
         margin-left: 90px;
     }
 
+    .section-body {
+        margin-bottom: 0.6em;
+    }
+
     div.raw-content {
         padding: 10px;
     }

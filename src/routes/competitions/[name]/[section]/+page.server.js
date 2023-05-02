@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { error } from '@sveltejs/kit';
+import { error } from "@sveltejs/kit";
 
 import { findResultsByAgeGroupAndSection, findTournament } from "$lib/server/db";
 
@@ -9,7 +9,7 @@ const tournament = await findTournament();
 export const load = async ({ params }) => {
     if (!tournament.competitions.find((c) => c.name === params.name && c.section === params.section)) {
         throw error(404, {
-            message: 'Not found'
+            message: "Not found",
         });
     }
 

@@ -44,7 +44,7 @@ let authentication = SvelteKitAuth({
 let authorization = async ({ event, resolve }) => {
     const session = await event.locals.getSession();
     const role = session?.user?.role || "guest";
-    
+
     let allowed = await permitted(role, event.request.method, event.url.pathname);
 
     if (!allowed) {
