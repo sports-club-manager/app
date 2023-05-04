@@ -14,7 +14,7 @@ export const PUT = async ({ params, request }) => {
     const result = await updateResult(params.id, await request.json());
 
     // broadcast the updated result on the socket
-    logger.debug(`broadcasting updated result: ${result}`);
+    logger.debug(`broadcasting updated result: ${JSON.stringify(result)}`);
     io.emit("save-result", result);
 
     // search and replace stage2 tag

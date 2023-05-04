@@ -1,7 +1,7 @@
 {
     "name": "SCM Tournament App",
     "short_name": "SCM",
-    "description": "Web application / PWA used to distribute tournament results and updates live on site to attendees. Requires a Mongo (or compatible) database for storage.",
+    "description": "PWA used to distribute tournament results and updates live on site to attendees.",
     "start_url": "/",
     "id": "/",
     "display": "standalone",

@@ -153,7 +153,7 @@
     #slot {
         padding-top: 38px;
         margin: 10px auto;
-        max-width: 1200px;
+        max-width: 1360px;
         width: 100%;
         min-height: 81vh;
     }
