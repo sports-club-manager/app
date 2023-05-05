@@ -25,7 +25,7 @@
         io.on("save-news", (news) => {
             kitchen.push({
                 label: `${news.title}:- ${news.body}`,
-                dismissButton: true
+                dismissButton: true,
             });
         });
     });
@@ -61,7 +61,7 @@
             <slot />
         </section>
     </PageTransition>
-    
+
     <Kitchen bind:this={kitchen} dismiss$class="material-icons" />
 
     <section id="footer">
@@ -153,7 +153,7 @@
     #slot {
         padding-top: 38px;
         margin: 10px auto;
-        max-width: 1360px;
+        max-width: 1860px;
         width: 100%;
         min-height: 81vh;
     }

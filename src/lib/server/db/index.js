@@ -28,6 +28,12 @@ export const findResults = async () => {
     return await Result.find({});
 };
 
+export const findResultsByDay = async (day) => {
+    if (isNaN(day)) day = 1;
+    logger.debug(`Result search for day ${day}..`);
+    return await Result.find({ day: day });
+};
+
 export const findResultsByAgeGroup = async (name) => {
     return await Result.find({ "competition.name": name });
 };

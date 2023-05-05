@@ -125,7 +125,6 @@
 
     onMount(() => {
         io.on("save-result", (result) => {
-            console.debug("Received result", result);
             for (let i = 0; i < results.length; i++) {
                 if (results[i]._id == result._id) {
                     results[i] = result;
@@ -135,7 +134,6 @@
         });
 
         io.on("remove-result", (resultId) => {
-            console.debug("Result deleted", resultId);
             for (let i = 0; i < results.length; i++) {
                 if (results[i]._id == resultId) {
                     results.splice(i, 1);
