@@ -1,4 +1,3 @@
-// @ts-nocheck
 export const typewriter = (node, { speed = 10 }) => {
     const valid = node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE;
 

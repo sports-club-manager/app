@@ -1,5 +1,4 @@
 <script>
-    // @ts-nocheck
     import leaguesort from "@sports-club-manager/leaguesort";
 
     import { highlight } from "$lib/stores";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { json } from "@sveltejs/kit";
 
 import { updateResult, findResult, removeResult, updateStageTwo } from "$lib/server/db";

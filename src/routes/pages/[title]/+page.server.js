@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { error } from "@sveltejs/kit";
 
 import { findPage } from "$lib/server/db";

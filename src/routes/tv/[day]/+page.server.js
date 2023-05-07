@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { findResultsByDay } from "$lib/server/db";
 
 /** @type {import('../$types').RequestHandler} */

@@ -1,5 +1,4 @@
 <script>
-    // @ts-nocheck
     import { onMount } from "svelte";
     import Button from "@smui/button";
     import Paper, { Title, Content } from "@smui/paper";

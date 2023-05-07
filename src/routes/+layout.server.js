@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** @type {import('./$types').LayoutServerLoad} */
 export const load = async ({ url, fetch, locals }) => {
     const pathComponents = url.pathname.split("/");

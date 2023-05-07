@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { error } from "@sveltejs/kit";
 
 import { findResultsByAgeGroupAndSection, findTournament } from "$lib/server/db";

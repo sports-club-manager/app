@@ -1,5 +1,4 @@
 <script>
-    // @ts-nocheck
     import { onMount } from "svelte";
     import Tab, { Icon, Label } from "@smui/tab";
     import Button from "@smui/button";

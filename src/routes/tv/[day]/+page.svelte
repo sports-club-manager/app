@@ -1,6 +1,4 @@
 <script>
-    // @ts-nocheck
-
     import { onMount } from "svelte";
     import LayoutGrid, { Cell as GridCell } from "@smui/layout-grid";
 

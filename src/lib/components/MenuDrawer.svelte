@@ -1,5 +1,4 @@
 <script>
-    // @ts-nocheck
     import "$lib/global.scss";
     import { goto } from "$app/navigation";
 

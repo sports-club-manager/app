@@ -1,4 +1,3 @@
-// @ts-nocheck
 /*
  * sets up the socket server in a custom HTTP server for production
  */

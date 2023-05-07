@@ -1,6 +1,4 @@
 <script>
-    // @ts-nocheck
-
     import { onMount } from "svelte";
 
     import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";

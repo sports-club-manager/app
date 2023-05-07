@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { updateStageTwo } from "$lib/server/db";
 import { io } from "$lib/socket-client";
 import { logger } from "$lib/server/logger";

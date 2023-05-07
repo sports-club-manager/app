@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { SvelteKitAuth } from "@auth/sveltekit";
 import GoogleProvider from "@auth/core/providers/google";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";

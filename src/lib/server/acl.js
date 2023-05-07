@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AccessControl } from "role-acl";
 import { logger } from "$lib/server/logger";
 

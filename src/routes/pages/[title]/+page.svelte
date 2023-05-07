@@ -1,6 +1,4 @@
 <script>
-    // @ts-nocheck
-
     import Section from "$lib/components/Section.svelte";
     import moment from "moment-timezone";
     import { marked } from "marked";

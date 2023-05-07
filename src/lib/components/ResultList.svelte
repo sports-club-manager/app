@@ -1,5 +1,4 @@
 <script>
-    // @ts-nocheck
     import { highlight } from "$lib/stores";
     import { awayScore, homeScore, time } from "$lib/collections";
 

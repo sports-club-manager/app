@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { findResults } from "$lib/server/db";
 
 /** @type {import('./$types').RequestHandler} */

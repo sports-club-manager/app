@@ -1,6 +1,4 @@
 <script>
-    // @ts-nocheck
-
     import AgeFab from "$lib/components/AgeFab.svelte";
     import Section from "$lib/components/Section.svelte";
     import { goto } from "$app/navigation";
