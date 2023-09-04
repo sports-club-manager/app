@@ -99,7 +99,7 @@
         let comp = results[0].competition;
         let entries = leaguesort.calculateTable(results);
         entries = entries.map((e) => e.name).reduce((acc, val) => acc.concat(val), []);
-        fetch(`/api/leaguetable/${comp.name}/${comp.section}/${comp.group}`, { method: "POST", body: JSON.stringify(entries) });
+        fetch(`/api/leaguetable/${comp.name}/${comp.section.replaceAll(" ", "")}/${comp.group}`, { method: "POST", body: JSON.stringify(entries) });
     };
 
     $: competitionResults = results.filter((r) => r.competition.name == selectedName);
@@ -113,7 +113,7 @@
         for (let i = 0; i < competitionResults.length; i++) {
             if (competitionResults[i].competition.group != undefined) {
                 let c = competitionResults[i].competition;
-                let key = c.section.replace(" ", "") + c.group;
+                let key = c.section.replaceAll(" ", "") + c.group;
                 if (groupTables[key] == undefined) groupTables[key] = [];
                 groupTables[key].push(competitionResults[i]);
             }
