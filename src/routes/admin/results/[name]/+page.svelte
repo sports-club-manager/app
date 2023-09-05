@@ -10,7 +10,6 @@
     import Checkbox from "@smui/checkbox";
     import FormField from "@smui/form-field";
     import IconButton, { Icon } from "@smui/icon-button";
-    import { Svg } from "@smui/common";
     import { mdiPlusBox, mdiMinusBox, mdiCheck, mdiCancel, mdiAlarm, mdiAlarmOff } from "@mdi/js";
     import leaguesort from "@sports-club-manager/leaguesort";
 
@@ -202,7 +201,7 @@
                                     on:click={() => (result = score(result, false, true))}
                                     size="button"
                                 >
-                                    <Icon component={Svg} viewBox="0 0 24 24">
+                                    <Icon tag="svg" viewBox="0 0 24 24">
                                         <path fill="currentColor" d={mdiMinusBox} />
                                     </Icon>
                                 </IconButton>
@@ -211,7 +210,7 @@
                                     on:click={() => (result = score(result, true, true))}
                                     size="button"
                                 >
-                                    <Icon component={Svg} viewBox="0 0 24 24">
+                                    <Icon tag="svg" viewBox="0 0 24 24">
                                         <path fill="currentColor" d={mdiPlusBox} />
                                     </Icon>
                                 </IconButton>
@@ -228,7 +227,7 @@
                                     on:click={() => (result = score(result, true, false))}
                                     size="button"
                                 >
-                                    <Icon component={Svg} viewBox="0 0 24 24">
+                                    <Icon tag="svg" viewBox="0 0 24 24">
                                         <path fill="currentColor" d={mdiPlusBox} />
                                     </Icon>
                                 </IconButton>
@@ -237,7 +236,7 @@
                                     on:click={() => (result = score(result, false, false))}
                                     size="button"
                                 >
-                                    <Icon component={Svg} viewBox="0 0 24 24">
+                                    <Icon tag="svg" viewBox="0 0 24 24">
                                         <path fill="currentColor" d={mdiMinusBox} />
                                     </Icon>
                                 </IconButton>
@@ -251,17 +250,17 @@
                                         size="button"
                                         disabled={result.homeGoals != result.awayGoals || result.competition.group != undefined}
                                     >
-                                        <Icon component={Svg} viewBox="0 0 24 24">
+                                        <Icon tag="svg" viewBox="0 0 24 24">
                                             <path fill="currentColor" d={result.pens ? mdiAlarm : mdiAlarmOff} />
                                         </Icon>
                                     </IconButton>
                                     <IconButton class="material-icons" on:click={() => updateResult(result)} size="button">
-                                        <Icon component={Svg} viewBox="0 0 24 24">
+                                        <Icon tag="svg" viewBox="0 0 24 24">
                                             <path fill="currentColor" d={mdiCheck} />
                                         </Icon>
                                     </IconButton>
                                     <IconButton class="material-icons" on:click={() => resetResult(result)} size="button">
-                                        <Icon component={Svg} viewBox="0 0 24 24">
+                                        <Icon tag="svg" viewBox="0 0 24 24">
                                             <path fill="currentColor" d={mdiCancel} />
                                         </Icon>
                                     </IconButton>
