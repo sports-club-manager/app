@@ -1,5 +1,6 @@
 import moment from "moment-timezone";
-//import { io } from "$lib/socket-client";
+
+const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 /*
  * sort a collection of results by dateTime (most recent first), then tag, then pitch
@@ -14,8 +15,7 @@ export const dateTimeSort = (a, b) => {
     return 0;
 };
 
-// TODO: externalise TZ
-export const time = (dateTime) => moment(dateTime).tz("Europe/London").format("HH:mm");
+export const time = (dateTime) => moment(dateTime).tz(tz).format("HH:mm");
 
 export const homeScore = (res) => {
     if ("homeGoals" in res && res.homeGoals >= 0) {
@@ -32,28 +32,3 @@ export const awayScore = (res) => {
         return "";
     }
 };
-
-/* TODO - can this be made to work?
-export const saveRemoveResults = (results) => {
-    console.debug("Mounted saveRemoveResults");
-    io.on("save-result", (result) => {
-        console.debug("Received result", result);
-        for (let i = 0; i < results.length; i++) {
-            if (results[i]._id == result._id) {
-                results[i] = result;
-                break;
-            }
-        }
-    });
-
-    io.on("remove-result", (resultId) => {
-        console.debug("Result deleted", resultId);
-        for (let i = 0; i < results.length; i++) {
-            if (results[i]._id == resultId) {
-                results.splice(i, 1);
-                break;
-            }
-        }
-    });
-};
-*/
