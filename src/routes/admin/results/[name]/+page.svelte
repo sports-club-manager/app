@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import Button from "@smui/button";
-    import Paper, { Title, Content } from "@smui/paper";
+    import Paper, { Content } from "@smui/paper";
     import Tab, { Label } from "@smui/tab";
     import TabBar from "@smui/tab-bar";
     import LayoutGrid, { Cell as GridCell } from "@smui/layout-grid";
@@ -98,7 +98,10 @@
         let comp = results[0].competition;
         let entries = leaguesort.calculateTable(results);
         entries = entries.map((e) => e.name).reduce((acc, val) => acc.concat(val), []);
-        fetch(`/api/leaguetable/${comp.name}/${comp.section.replaceAll(" ", "")}/${comp.group}`, { method: "POST", body: JSON.stringify(entries) });
+        fetch(`/api/leaguetable/${comp.name}/${comp.section.replaceAll(" ", "")}/${comp.group}`, {
+            method: "POST",
+            body: JSON.stringify(entries),
+        });
     };
 
     $: competitionResults = results.filter((r) => r.competition.name == selectedName);
@@ -181,109 +184,110 @@
         </TabBar>
 
         {#if active === "results"}
-            <DataTable table$aria-label="Result list" style="width: 100%;">
-                <Body>
-                    {#each displayedResults as result}
-                        <Row>
-                            <Cell style="width: 10%;">
-                                <small>
-                                    {result.competition.section || ""}<br />
-                                    {#if result.competition.group}
-                                        Grp {result.competition.group} / #
-                                    {/if}
-                                    {result.tag}
-                                </small>
-                            </Cell>
-                            <Cell numeric style="width: 32%;">
-                                {result.homeTeam}
-                                <IconButton
-                                    class="material-icons"
-                                    on:click={() => (result = score(result, false, true))}
-                                    size="button"
-                                >
-                                    <Icon tag="svg" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d={mdiMinusBox} />
-                                    </Icon>
-                                </IconButton>
-                                <IconButton
-                                    class="material-icons"
-                                    on:click={() => (result = score(result, true, true))}
-                                    size="button"
-                                >
-                                    <Icon tag="svg" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d={mdiPlusBox} />
-                                    </Icon>
-                                </IconButton>
-                            </Cell>
-                            <Cell numeric class="points" style="width: 6%;">
-                                {#if homeScore(result) == ""}<small>P{result.pitch}</small> {:else}{homeScore(result)}{/if}
-                            </Cell>
-                            <Cell class="points" style="width: 6%;">
-                                {#if awayScore(result) == ""}<small>{time(result.dateTime)}</small> {:else}{awayScore(result)}{/if}
-                            </Cell>
-                            <Cell style="width: 32%;">
-                                <IconButton
-                                    class="material-icons"
-                                    on:click={() => (result = score(result, true, false))}
-                                    size="button"
-                                >
-                                    <Icon tag="svg" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d={mdiPlusBox} />
-                                    </Icon>
-                                </IconButton>
-                                <IconButton
-                                    class="material-icons"
-                                    on:click={() => (result = score(result, false, false))}
-                                    size="button"
-                                >
-                                    <Icon tag="svg" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d={mdiMinusBox} />
-                                    </Icon>
-                                </IconButton>
-                                {result.awayTeam}
-                            </Cell>
-                            <Cell>
-                                {#if result.homeGoals !== undefined}
-                                    <IconButton
-                                        class="material-icons"
-                                        on:click={() => (result.pens = !result.pens)}
-                                        size="button"
-                                        disabled={result.homeGoals != result.awayGoals || result.competition.group != undefined}
-                                    >
-                                        <Icon tag="svg" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d={result.pens ? mdiAlarm : mdiAlarmOff} />
-                                        </Icon>
-                                    </IconButton>
-                                    <IconButton class="material-icons" on:click={() => updateResult(result)} size="button">
-                                        <Icon tag="svg" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d={mdiCheck} />
-                                        </Icon>
-                                    </IconButton>
-                                    <IconButton class="material-icons" on:click={() => resetResult(result)} size="button">
-                                        <Icon tag="svg" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d={mdiCancel} />
-                                        </Icon>
-                                    </IconButton>
+        <DataTable table$aria-label="Result list" style="width: 100%;">
+            <Body>
+                {#each displayedResults as result}
+                    <Row>
+                        <Cell>
+                            <small>
+                                {result.competition.section || ""}<br />
+                                {#if result.competition.group}
+                                    Grp {result.competition.group} / #
                                 {/if}
-                            </Cell>
-                        </Row>
-                    {/each}
-                </Body>
-            </DataTable>
-        {:else if active === "tables"}
-            <LayoutGrid>
-                {#each Object.keys(groupTables) as table}
-                    <GridCell spanDevices={{ desktop: 6, tablet: 12, phone: 12 }}>
-                        <div class="header">
-                            <Button variant="raised" on:click={() => confirmTable(groupTables[table])}>
-                                <Label>Confirm Final Positions</Label>
-                            </Button>
-                            {groupTables[table][0].competition.section} / G{groupTables[table][0].competition.group}
-                        </div>
-                        <LeagueTable bind:results={groupTables[table]} />
-                    </GridCell>
+                                {result.tag}
+                            </small>
+                        </Cell>
+                        <Cell numeric>
+                            {result.homeTeam}
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, false, true))}
+                                size="button"
+                            >
+                                <Icon tag="svg" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiMinusBox} />
+                                </Icon>
+                            </IconButton>
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, true, true))}
+                                size="button"
+                            >
+                                <Icon tag="svg" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiPlusBox} />
+                                </Icon>
+                            </IconButton>
+                        </Cell>
+                        <Cell numeric>
+                            {#if homeScore(result) == ""}<small>P{result.pitch}</small> {:else}{homeScore(result)}{/if}
+                        </Cell>
+                        <Cell>
+                            {#if awayScore(result) == ""}<small>{time(result.dateTime)}</small> {:else}{awayScore(result)}{/if}
+                        </Cell>
+                        <Cell>
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, true, false))}
+                                size="button"
+                            >
+                                <Icon tag="svg" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiPlusBox} />
+                                </Icon>
+                            </IconButton>
+                            <IconButton
+                                class="material-icons"
+                                on:click={() => (result = score(result, false, false))}
+                                size="button"
+                            >
+                                <Icon tag="svg" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d={mdiMinusBox} />
+                                </Icon>
+                            </IconButton>
+                            {result.awayTeam}
+                        </Cell>
+                        <Cell>
+                            {#if result.homeGoals !== undefined}
+                                <IconButton
+                                    class="material-icons"
+                                    on:click={() => (result.pens = !result.pens)}
+                                    size="button"
+                                    disabled={result.homeGoals != result.awayGoals || result.competition.group != undefined}
+                                    title="Penalties"
+                                >
+                                    <Icon tag="svg" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d={result.pens ? mdiAlarm : mdiAlarmOff} />
+                                    </Icon>
+                                </IconButton>
+                                <IconButton class="material-icons" on:click={() => updateResult(result)} size="button">
+                                    <Icon tag="svg" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d={mdiCheck} />
+                                    </Icon>
+                                </IconButton>
+                                <IconButton class="material-icons" on:click={() => resetResult(result)} size="button">
+                                    <Icon tag="svg" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d={mdiCancel} />
+                                    </Icon>
+                                </IconButton>
+                            {/if}
+                        </Cell>
+                    </Row>
                 {/each}
-            </LayoutGrid>
+            </Body>
+        </DataTable>
+        {:else if active === "tables"}
+        <LayoutGrid>
+            {#each Object.keys(groupTables) as table}
+                <GridCell spanDevices={{ desktop: 6, tablet: 12, phone: 12 }}>
+                    <div class="header">
+                        <Button variant="raised" on:click={() => confirmTable(groupTables[table])}>
+                            <Label>Confirm Final Positions</Label>
+                        </Button>
+                        {groupTables[table][0].competition.section} / G{groupTables[table][0].competition.group}
+                    </div>
+                    <LeagueTable bind:results={groupTables[table]} />
+                </GridCell>
+            {/each}
+        </LayoutGrid>
         {/if}
     </div>
 </Section>
@@ -293,5 +297,8 @@
         font-size: 1.1em;
         border-bottom: 1px solid;
         padding: 4px;
+    }
+    :global(table, .table) {
+        width: auto;
     }
 </style>

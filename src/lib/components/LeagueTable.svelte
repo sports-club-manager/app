@@ -45,4 +45,14 @@
 </table>
 
 <style>
+    table,
+    .table {
+        border-width: 0;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table thead tr,
+    .table th {
+        font-weight: normal;
+    }
 </style>

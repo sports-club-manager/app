@@ -50,3 +50,14 @@
         </tbody>
     </table>
 {/if}
+
+<style>
+    table,
+    .table {
+        width: 100%;
+    }
+    .table thead tr,
+    .table th {
+        font-weight: normal;
+    }
+</style>

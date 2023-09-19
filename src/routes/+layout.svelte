@@ -123,19 +123,8 @@
     .text-left {
         text-align: left;
     }
-
-    table,
-    .table {
-        border-width: 0;
-        width: 100%;
-        border-collapse: collapse;
-    }
-    .table thead tr,
     .text-muted {
         color: #aaa;
-    }
-    .table th {
-        font-weight: normal;
     }
 
     .flex-layout {
@@ -145,7 +134,6 @@
         flex-wrap: wrap;
         flex-direction: column;
         justify-content: space-between;
-        overflow: hidden;
     }
 
     #slot {
@@ -213,7 +201,7 @@
             page-break-inside: avoid;
         }
         body {
-            padding-top: 0px; /* from 80 */
+            padding-top: 0px; 
         }
     }
 </style>
